@@ -25,7 +25,8 @@ webpack(config).watch({}, (err, stats) => {
   } else {
     copyPublicFolder();
   }
-  console.error(stats.toString({
+  var statsMessage = stats || ''
+  console.error(statsMessage.toString({
     chunks: false,
     colors: true
   }));
