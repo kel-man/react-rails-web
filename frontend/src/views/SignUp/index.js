@@ -47,7 +47,9 @@ const SignUp = ({classes, history}) => {
       },
       method: 'POST',
       url: '/users',
-      data: data,
+      data: {
+        user: data,
+      },
     }).then(response => {
       history.push('/')
     }).catch(error => {
