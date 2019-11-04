@@ -20,6 +20,7 @@ gem 'jbuilder', '2.7.0'
 gem 'pg', '0.20.0'
 
 gem 'devise', '4.7.1'
+gem 'awesome_print'
 
 
 group :development, :test do
