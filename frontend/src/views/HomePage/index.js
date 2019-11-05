@@ -9,7 +9,6 @@ const HomePage = ({history}) => {
       <NavBar />
       <Container maxWidth='sm'>
         <Typography>This is our homepage</Typography>
-        <Button variant='outlined' onClick={()=>history.push("_/signup")}>Sign Up</Button>
       </Container>
     </>
   )
