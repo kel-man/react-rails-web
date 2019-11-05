@@ -28,7 +28,7 @@ const FAQ = ({history}) => {
             <Typography>
               The brothers Liam and Kelen Yafuso are two
               insightful and talented engineers specializing
-              in consultation regarding web development. We
+              in consultation and advanced web development. We
               emphazise the power and efficiency of customizable
               solutions and engines while staying up to date
               with bleeding edge, lightning fast technology
