@@ -36,6 +36,25 @@ const FAQ = ({history}) => {
             </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <ExpansionPanel>
+          <ExpansionPanelSummary
+            aria-controls="Panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography className='heading'>Why do we do it?</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography>
+              We fervently believe in the advancement of human understanding
+              and technology. By utilizing top-of-the-line and cutting edge
+              libraries and strategies, we pave the way for
+              logical and adaptable construction of software that is
+              not only powerful out-of-the-box, but is also
+              ready for expansion and reorientation with fluidity
+              and with no loss in power.
+            </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </Container>
     </>
   )

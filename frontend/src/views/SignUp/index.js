@@ -62,7 +62,7 @@ const SignUp = ({classes, history}) => {
     <>
       <NavBar />
       <CssBaseline/>
-      <Container>
+      <Container maxWidth='sm'>
         <Typography color='primary'>SignUp</Typography>
         <form onSubmit={onSubmit} className={classes.form}>
           <TextField

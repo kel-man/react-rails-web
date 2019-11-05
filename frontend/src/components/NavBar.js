@@ -5,13 +5,12 @@ import { withRouter } from 'react-router-dom'
 const NavBar = ({history}) => {
   return(
     <>
-      <AppBar position='static'>
-
-          <Button color='inherit' edge='start' variant='outlined' onClick={()=>history.push("/")}>Home</Button>
-          <Button color='inherit' variant='outlined' onClick={()=>history.push("/_/signup")}>Sign Up</Button>
-          <Button color='inherit' edge='end' variant='outlined' onClick={()=>history.push("/_/FAQ")}>F.A.Q.</Button>
-
-      </AppBar>
+      <Box>
+        <Button color='inherit' edge='start' variant='outlined' onClick={()=>history.push("/")}>Home</Button>
+        <Button color='inherit' variant='outlined' onClick={()=>history.push("/_/signup")}>Sign Up</Button>
+        <Button color='inherit' variant='outlined' onClick={()=>history.push("/_/FAQ")}>F.A.Q.</Button>
+        <Button color='inherit' edge='end' variant='outlined' onClick={()=>history.push("/_/login")}>Log-in</Button>
+      </Box>
     </>
   )
 }
