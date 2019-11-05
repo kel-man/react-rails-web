@@ -1,1 +1,3 @@
-npm run start
+#!/bin/bash
+npm run watch &
+  npm run sync
