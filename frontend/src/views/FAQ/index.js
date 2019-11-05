@@ -8,7 +8,9 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelDetails
 } from '@material-ui/core'
-
+import styles from '../../components/styles'
+import { withRouter } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
 
 const FAQ = ({history}) => {
   return(
@@ -60,4 +62,4 @@ const FAQ = ({history}) => {
   )
 }
 
-export default FAQ
+export default withStyles(styles)(withRouter(FAQ))
