@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import {
+  Box, Button, Container, CssBaseline, Typography
+  } from '@material-ui/core'
 import axios from 'axios'
+import NavBar from '../../components/NavBar'
 
 const styles = theme => ({
   form: {
@@ -57,25 +59,29 @@ const SignUp = ({classes, history}) => {
   }
 
   return (
-    <div className={classes.container}>
-      <Typography color='primary'>SignUp</Typography>
-      <form onSubmit={onSubmit} className={classes.form}>
-        <TextField
-          className={classes.textField}
-          name="email"
-          onChange={inputChange}
-          label="Email"
-        />
-        <TextField
-          className={classes.textField}
-          name="password"
-          type='password'
-          onChange={inputChange}
-          label="Password"
-        />
-        <Button variant='contained' type="submit">Submit</Button>
-      </form>
-    </div>
+    <>
+      <NavBar />
+      <CssBaseline/>
+      <Container>
+        <Typography color='primary'>SignUp</Typography>
+        <form onSubmit={onSubmit} className={classes.form}>
+          <TextField
+            className={classes.textField}
+            name="email"
+            onChange={inputChange}
+            label="Email"
+          />
+          <TextField
+            className={classes.textField}
+            name="password"
+            type='password'
+            onChange={inputChange}
+            label="Password"
+          />
+          <Button variant='contained' type="submit">Submit</Button>
+        </form>
+      </Container>
+    </>
   )
 }
 

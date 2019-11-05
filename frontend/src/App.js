@@ -4,6 +4,7 @@ import logo from './logo.svg'
 import './App.css'
 import AppRouter from './AppRouter'
 import Theme from './Theme'
+import AuthContext from './AuthContext'
 
 const appStyle = {
   backgroundColor: '#333',
@@ -11,11 +12,15 @@ const appStyle = {
 }
 
 function App() {
+  const [authContext, setAuthContext] = React.useState({})
+
   return (
     <div style={appStyle}>
-      <ThemeProvider theme={Theme}>
-        <AppRouter/>
-      </ThemeProvider>
+      <AuthContext.Provider value={authContext}>
+        <ThemeProvider theme={Theme}>
+          <AppRouter/>
+        </ThemeProvider>
+      </AuthContext.Provider>
     </div>
   );
 }
