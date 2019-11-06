@@ -24,7 +24,6 @@ gem 'awesome_print'
 gem 'omniauth-github'
 gem 'dotenv'
 
->>>>>>> add docker support
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
