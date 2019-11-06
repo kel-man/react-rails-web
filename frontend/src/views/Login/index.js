@@ -3,6 +3,7 @@ import { Button, CssBaseline, Container, TextField, Typography } from '@material
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import styles from '../../components/styles'
+import axios from 'axios'
 
 const Login = ({classes, history}) => {
   const [ values, setValues ] = useState({
@@ -11,16 +12,30 @@ const Login = ({classes, history}) => {
   })
 
   const inputChange = e => {
-    const { name, value } = e.targe
+    const { name, value } = e.target
     setValues({...values, [name]: value})
   }
 
   const onSubmit = e => {
     e.preventDefault()
-    const data = {...values}
+    const data = JSON.parse(JSON.stringify({...values}))
     data.password_confirmation = values.password
-    history.push('/')
-    }
+    debugger
+
+    axios({
+      headers: {
+        contentType: 'application/json',
+      },
+      method: 'POST',
+      url: '/users/sign_in',
+      data: {
+        user: data,
+      },
+    }).then(response => {
+      history.push('/')
+    }).catch(error => {
+    })
+  }
 
   return(
     <>
