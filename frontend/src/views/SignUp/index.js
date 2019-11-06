@@ -6,7 +6,6 @@ import {
   Box, Button, Container, CssBaseline, Typography
   } from '@material-ui/core'
 import axios from 'axios'
-import NavBar from '../../components/NavBar'
 import styles from '../../components/styles'
 
 const SignUp = ({classes, history}) => {
@@ -41,7 +40,6 @@ const SignUp = ({classes, history}) => {
 
   return (
     <>
-      <NavBar />
       <CssBaseline/>
       <Container maxWidth='sm'>
         <Typography color='primary'>SignUp</Typography>

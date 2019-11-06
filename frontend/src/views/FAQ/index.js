@@ -1,5 +1,4 @@
 import React from 'react'
-import NavBar from '../../components/NavBar'
 import {
   Container,
   CssBaseline,
@@ -15,7 +14,6 @@ import { withStyles } from '@material-ui/core/styles'
 const FAQ = ({history}) => {
   return(
     <>
-      <NavBar />
       <CssBaseline />
       <Container>
         <Typography>Frequently Asked Questions</Typography>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button, CssBaseline, Container, TextField, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
-import NavBar from '../../components/NavBar'
 import { withStyles } from '@material-ui/core/styles'
 import styles from '../../components/styles'
 
@@ -25,7 +24,6 @@ const Login = ({classes, history}) => {
 
   return(
     <>
-      <NavBar />
       <CssBaseline />
       <Container maxWidth='sm'>
         <Typography>

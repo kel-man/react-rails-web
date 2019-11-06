@@ -4,11 +4,13 @@ import HomePage from './views/HomePage/'
 import SignUp from './views/SignUp/'
 import FAQ from './views/FAQ/'
 import Login from './views/Login/'
+import Navbar from './components/NavBar'
 
 const AppRouter = () => {
 
   return (<>
     <Router >
+      <Navbar />
       <Switch>
         <Route path="/_/FAQ" component={FAQ} />
         <Route path="/_/login" component={Login} />
