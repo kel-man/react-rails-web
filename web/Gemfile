@@ -21,9 +21,7 @@ gem 'pg', '0.20.0'
 
 gem 'devise', '4.7.1'
 gem 'awesome_print'
-gem 'omniauth-github'
 gem 'dotenv'
-
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
