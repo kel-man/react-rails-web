@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HomePage = ({classes, history}) => {
+const HomePage = ({ history}) => {
   const classes = useStyles();
   const [ values, setValues ] = useState({
     APOD: {},
@@ -59,22 +59,23 @@ const HomePage = ({classes, history}) => {
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://material-ui.com/">
-          Progenitor
+          Liam Yafuso
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
       </Typography>
     );
   }
-  componentDidMount(){
+
+  useEffect(() => {
     axios
       .get(URL)
-      .then(response => response.data)
-      .then(response => {
-        const { name, value } = { 'APOD', response }
-        setValues({...values, [name]: value})
-      }
-  }
+      .then(({ data }) => {
+        setValues(data)
+      })
+  }, [])
+
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
