@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import HomePage from './views/HomePage/'
+import HomePage from './views/TemplateHome/'
 import SignUp from './views/SignUp/'
 import FAQ from './views/FAQ/'
 import Login from './views/Login/'
