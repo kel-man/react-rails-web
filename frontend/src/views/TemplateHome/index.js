@@ -1,56 +1,30 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Link from '@material-ui/core/Link'
+import Paper from '@material-ui/core/Paper'
+import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Progenitor
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const getAPOD = () => {
-  try {
-    return axios.get("https://api.nasa.gov/planetary/apod?api_key=w63U6esu63MyVjh7jduR6Xzpy2SbKFlw0ojUBmKm")
-  } catch (error) {console.error(error)}
-}
+const URL = 'https://api.nasa.gov/planetary/apod?api_key=w63U6esu63MyVjh7jduR6Xzpy2SbKFlw0ojUBmKm'
 
-const NASA = async () => {
-  const APOD = getAPOD()
-    .then(response => {
-      if (response.url) {
-        const URL = response.url
-      }
-    })
-    .catch(error => console.log(error)
-}
-
-NASA()
 
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: URL,
+    backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -74,9 +48,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function HomePage() {
+const HomePage = ({classes, history}) => {
   const classes = useStyles();
+  const [ values, setValues ] = useState({
+    APOD: {},
+  })
 
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
+          Progenitor
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
+  componentDidMount(){
+    axios
+      .get(URL)
+      .then(response => response.data)
+      .then(response => {
+        const { name, value } = { 'APOD', response }
+        setValues({...values, [name]: value})
+      }
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -146,3 +144,5 @@ export default function HomePage() {
     </Grid>
   );
 }
+
+export default withRouter(HomePage)
