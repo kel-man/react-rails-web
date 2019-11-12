@@ -15,16 +15,34 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 
-
 const URL = 'https://api.nasa.gov/planetary/apod?api_key=w63U6esu63MyVjh7jduR6Xzpy2SbKFlw0ojUBmKm'
 
-
+const useFetch = (url) => {
+  const [data, setData] = useState(null)
+  useEffect(() => {
+    let mounted = true
+    const abortController = new AbortController()
+    (async () => {
+      const res = await fetch(url, {
+        signal: abortController.signal,
+      });
+      const data = await res.json()
+      if (mounted) setData(data)
+    })()
+    const cleanup = () => {
+      mounted = false
+      abortController.abort()
+    }
+    return cleanup
+  }, [url])
+  return data
+}
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(example.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -66,15 +84,6 @@ const HomePage = ({ history}) => {
       </Typography>
     );
   }
-
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then(({ data }) => {
-        setValues(data)
-      })
-  }, [])
-
 
   return (
     <Grid container component="main" className={classes.root}>
