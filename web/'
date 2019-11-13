@@ -2,13 +2,13 @@ import React from 'react'
 import { AppBar, Box, Button, IconButton, Toolbar } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { teal } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexFlow: 'row',
-    backgroundColor: teal[900],
+    backgroundColor: green[400],
     justifyContent: 'flex-end',
   },
 })
