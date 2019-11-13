@@ -9,8 +9,8 @@ const styles = theme => ({
     display: 'flex',
     flexFlow: 'row',
     backgroundColor: green[400],
-
-  }
+    justifyContent: 'flex-end',
+  },
 })
 const NavBar = ({classes, history}) => {
   return(
