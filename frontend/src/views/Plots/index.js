@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { CssBaseline, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -25,6 +25,7 @@ const styles = theme => ({
 
 const Plots = ({classes, history}) => {
   return(<>
+    <CssBaseline />
     <Typography>Plots page</Typography>
   </>
   )
