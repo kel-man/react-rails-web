@@ -1,6 +1,5 @@
 import React from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
-import logo from './logo.svg'
 import './App.css'
 import AppRouter from './AppRouter'
 import Theme from './Theme'

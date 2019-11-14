@@ -45,14 +45,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const HomePage = ({ history }) => {
+const HomePage = () => {
   const classes = useStyles();
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://github.com/theaggregator">
-          Liam Yafuso
+          William and Kelen Yafuso
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

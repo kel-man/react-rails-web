@@ -1,14 +1,13 @@
 import React from 'react'
-import { AppBar, Box, Button, IconButton, Toolbar } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { teal } from '@material-ui/core/colors'
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexFlow: 'row',
-    backgroundColor: teal[900],
+    background: 'linear-gradient(to right, #66bb6a, #004d40)',
     justifyContent: 'flex-end',
   },
 })
@@ -17,6 +16,7 @@ const NavBar = ({classes, history}) => {
     <>
       <Box className={classes.container}>
         <Button color='inherit' edge='start'  onClick={()=>history.push("/")}>Home</Button>
+        <Button color='inherit' onClick={()=>history.push("/_/plots")}>Plots</Button>
         <Button color='inherit'  onClick={()=>history.push("/_/signup")}>Sign Up</Button>
         <Button color='inherit'  onClick={()=>history.push("/_/FAQ")}>F.A.Q.</Button>
         <Button color='inherit' edge='end'  onClick={()=>history.push("/_/login")}>Log-in</Button>

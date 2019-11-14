@@ -2,8 +2,27 @@ import React, { useState } from 'react'
 import { Button, CssBaseline, Container, TextField, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import styles from '../../components/styles'
 import axios from 'axios'
+
+const styles = theme => ({
+  form: {
+    display: 'flex',
+    flexFlow: 'column',
+    maxWidth: '500px',
+    padding: '20px',
+    justifyContent: 'center',
+    backgroundColor: theme.ash,
+  },
+  container: {
+    display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexFlow: 'column',
+  },
+  textField: {
+    marginBottom: '20px',
+  },
+})
 
 const Login = ({classes, history}) => {
   const [ values, setValues ] = useState({
