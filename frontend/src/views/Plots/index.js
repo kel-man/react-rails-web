@@ -3,6 +3,8 @@ import { CssBaseline, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 
+// const Plotly = require('plotly.js-dist')
+
 const styles = theme => ({
   form: {
     display: 'flex',
