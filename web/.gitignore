@@ -27,3 +27,4 @@
 
 # ignore react build
 /static
+.env

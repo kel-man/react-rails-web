@@ -9,6 +9,10 @@ services:
       - 3003:3003
     depends_on:
       - postgres
+    environment:
+      - DATABASE_HOST="postgres"
+      - DATABASE_USER="postgres"
+      - PGHOST="postgres"
 
   frontend:
     build:
