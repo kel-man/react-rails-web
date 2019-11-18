@@ -41,7 +41,7 @@ const Login = ({classes, history}) => {
 
     axios({
       headers: {
-        contentType: 'application/json',
+        "Content-Type": 'application/json',
       },
       method: 'POST',
       url: '/users/sign_in',

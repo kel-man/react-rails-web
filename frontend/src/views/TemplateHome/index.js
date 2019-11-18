@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import {
   Avatar,
@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +47,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const HomePage = () => {
+
   const classes = useStyles();
+
+  const [ values, setValues ] = useState({
+    email: '',
+    password: '',
+  })
+
+  const inputChange = e => {
+    const { name, value } = e.target
+    setValues({...values, [name]: value})
+  }
+
   function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -58,6 +71,28 @@ const HomePage = () => {
         {'.'}
       </Typography>
     );
+  }
+
+  const onSubmit = e => {
+    e.preventDefault()
+
+    const data = JSON.parse(JSON.stringify({...values}))
+
+
+    debugger
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      url: '/users/sign_in',
+      data: {
+        user: data,
+      },
+    }).then(response => {
+      window.location = "/"
+    }).catch(error => {
+    })
   }
 
   return (
@@ -72,17 +107,17 @@ const HomePage = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={onSubmit} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={inputChange}
             />
             <TextField
               variant="outlined"
@@ -92,8 +127,8 @@ const HomePage = () => {
               name="password"
               label="Password"
               type="password"
-              id="password"
               autoComplete="current-password"
+              onChange={inputChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

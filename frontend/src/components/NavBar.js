@@ -3,6 +3,7 @@ import AuthContext from '../AuthContext'
 import { Box, Button, CssBaseline } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
+import axios from 'axios'
 
 const styles = theme => ({
   container: {
@@ -15,6 +16,18 @@ const styles = theme => ({
 
 const NavBar = ({classes, history}) => {
   const authContext = useContext(AuthContext)
+
+  const logout = () => {
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+      url: '/users/sign_out',
+    })
+    .then(()=>window.location = '/')
+  }
+
   return(
     <>
       <CssBaseline />
@@ -60,6 +73,17 @@ const NavBar = ({classes, history}) => {
               onClick={()=>history.push("/_/login")}
             >
               Log-in
+            </Button>
+          </>
+        }
+        {
+          authContext.loggedIn &&
+          <>
+            <Button
+              color='inherit'
+              onClick={logout}
+            >
+              Log Out
             </Button>
           </>
         }
