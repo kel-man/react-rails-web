@@ -1,0 +1,1 @@
+json.loggedIn @user.present?

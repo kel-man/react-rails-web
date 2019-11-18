@@ -38,8 +38,6 @@ const Login = ({classes, history}) => {
   const onSubmit = e => {
     e.preventDefault()
     const data = JSON.parse(JSON.stringify({...values}))
-    data.password_confirmation = values.password
-    debugger
 
     axios({
       headers: {
@@ -51,7 +49,7 @@ const Login = ({classes, history}) => {
         user: data,
       },
     }).then(response => {
-      history.push('/')
+      window.location = "/"
     }).catch(error => {
     })
   }

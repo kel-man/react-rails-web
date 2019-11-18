@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthContext from '../AuthContext'
 import { Box, Button, CssBaseline } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
@@ -11,7 +12,9 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
 })
+
 const NavBar = ({classes, history}) => {
+  const authContext = useContext(AuthContext)
   return(
     <>
       <CssBaseline />
@@ -37,24 +40,29 @@ const NavBar = ({classes, history}) => {
         </Button>
         <Button
           color='inherit'
-          onClick={()=>history.push("/_/signup")}
-        >
-          Sign Up
-        </Button>
-        <Button
-          color='inherit'
           onClick={()=>history.push("/_/FAQ")}
         >
           F.A.Q.
         </Button>
-        <Button
-          color='inherit'
-          edge='end'
-          variant='outlined'
-          onClick={()=>history.push("/_/login")}
-        >
-          Log-in
-        </Button>
+        {
+          !authContext.loggedIn &&
+          <>
+            <Button
+              color='inherit'
+              onClick={()=>history.push("/_/signup")}
+            >
+              Sign Up
+            </Button>
+            <Button
+              color='inherit'
+              edge='end'
+              variant='outlined'
+              onClick={()=>history.push("/_/login")}
+            >
+              Log-in
+            </Button>
+          </>
+        }
       </Box>
     </>
   )

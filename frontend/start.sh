@@ -1,3 +1,3 @@
 #!/bin/bash
 npm run watch &
-  npm run sync
+  npm run docker-sync
