@@ -27,6 +27,8 @@ const styles = theme => ({
   },
 })
 
+const Ramen = require('../../data/ramen-ratings.json')
+
 const Plots = ({classes, history}) => {
   return(<>
     <CssBaseline />
