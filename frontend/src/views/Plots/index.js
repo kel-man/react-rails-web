@@ -26,16 +26,43 @@ const styles = theme => ({
     marginBottom: '20px',
   },
 })
+var Information = {
+  ReviewNumber: [],
+  Brand: [],
+  Variety: [],
+  Style: [],
+  Country: [],
+  Stars: [],
+}
 
 const Ramen = require('../../data/ramen-ratings.json')
+Ramen.map(item => {
+  Information.ReviewNumber.push(item.Review)
+  Information.Brand.push(item.Brand)
+  Information.Variety.push(item.Variety)
+  Information.Style.push(item.Style)
+  Information.Country.push(item.Country)
+  Information.Stars.push(item.Stars)
+})
+
+const Data = [
+  {
+    x: Information.ReviewNumber,
+    y: Information.Stars,
+    type: 'scatter',
+    mode: 'lines+points',
+    marker: {color: 'red'},
+  },
+  {type: 'bar', x: Information.ReviewNumber, y: Information.Stars},
+]
 
 const Plots = ({classes, history}) => {
   return(<>
     <CssBaseline />
     <Typography>Plots page</Typography>
      <Plot
-        data={MockData}
-        layout={ {width: 1200, height: 900, title: 'Example'} }
+        data={Data}
+        layout={ {width: 1200, height: 900, title: 'Ramens'} }
       />
   </>
   )
