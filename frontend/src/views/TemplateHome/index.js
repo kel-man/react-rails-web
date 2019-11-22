@@ -91,7 +91,7 @@ const HomePage = () => {
       },
     }).then(response => {
       window.location = "/"
-    }).catch(error => {
+    }).catch(error => {console.log(error)
     })
   }
 
