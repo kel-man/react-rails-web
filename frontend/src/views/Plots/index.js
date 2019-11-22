@@ -3,7 +3,6 @@ import { CssBaseline, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import Plot from 'react-plotly.js'
-import MockData from '../../components/MockData'
 
 // const Plotly = require('plotly.js-dist')
 
