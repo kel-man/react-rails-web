@@ -34,7 +34,7 @@ var Information = {
   Stars: [],
 }
 
-const Ramen = require('../../data/ramen-ratings.json')
+const Ramen = require('../../data/ramen/ramen-ratings.json')
 Ramen.map(item => {
   Information.ReviewNumber.push(item.Review)
   Information.Brand.push(item.Brand)
@@ -52,7 +52,11 @@ const Data = [
     mode: 'markers',
     marker: {color: 'green'},
   },
-  {type: 'bar', x: Information.ReviewNumber, y: Information.Stars},
+  {
+    type: 'bar',
+    x: Information.ReviewNumber,
+    y: Information.Stars,
+  }
 ]
 
 const Plots = ({classes, history}) => {
@@ -60,6 +64,7 @@ const Plots = ({classes, history}) => {
     <CssBaseline />
     <Typography>Plots page</Typography>
       <Plot
+
         data={Data}
         layout={ {width: 1200, height: 900, title: 'Ramens'} }
       />
