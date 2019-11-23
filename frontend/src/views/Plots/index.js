@@ -49,8 +49,8 @@ const Data = [
     x: Information.ReviewNumber,
     y: Information.Stars,
     type: 'scatter',
-    mode: 'lines+points',
-    marker: {color: 'red'},
+    mode: 'markers',
+    marker: {color: 'green'},
   },
   {type: 'bar', x: Information.ReviewNumber, y: Information.Stars},
 ]
@@ -59,7 +59,11 @@ const Plots = ({classes, history}) => {
   return(<>
     <CssBaseline />
     <Typography>Plots page</Typography>
-     <Plot
+      <Plot
+        data={Data}
+        layout={ {width: 1200, height: 900, title: 'Ramens'} }
+      />
+      <Plot
         data={Data}
         layout={ {width: 1200, height: 900, title: 'Ramens'} }
       />
