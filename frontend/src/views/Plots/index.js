@@ -26,36 +26,39 @@ const styles = theme => ({
   },
 })
 var Information = {
-  ReviewNumber: [],
-  Brand: [],
-  Variety: [],
-  Style: [],
-  Country: [],
-  Stars: [],
+  Ramen: {
+    ReviewNumber: [],
+    Brand: [],
+    Variety: [],
+    Style: [],
+    Country: [],
+    Stars: [],
+  },
 }
 
-const Ramen = require('../../data/ramen/ramen-ratings.json')
-Ramen.map(item => {
-  Information.ReviewNumber.push(item.Review)
-  Information.Brand.push(item.Brand)
-  Information.Variety.push(item.Variety)
-  Information.Style.push(item.Style)
-  Information.Country.push(item.Country)
-  Information.Stars.push(item.Stars)
+const ramenRatings = require('../../data/ramen/ramen-ratings.json')
+ramenRatings.map(item => {
+  Information.Ramen.ReviewNumber.push(item.Review)
+  Information.Ramen.Brand.push(item.Brand)
+  Information.Ramen.Variety.push(item.Variety)
+  Information.Ramen.Style.push(item.Style)
+  Information.Ramen.Country.push(item.Country)
+  Information.Ramen.Stars.push(item.Stars)
+  return null
 })
 
-const Data = [
+const Ramen = [
   {
-    x: Information.ReviewNumber,
-    y: Information.Stars,
+    x: Information.Ramen.ReviewNumber,
+    y: Information.Ramen.Stars,
     type: 'scatter',
     mode: 'markers',
     marker: {color: 'green'},
   },
   {
     type: 'bar',
-    x: Information.ReviewNumber,
-    y: Information.Stars,
+    x: Information.Ramen.ReviewNumber,
+    y: Information.Ramen.Stars,
   }
 ]
 
@@ -64,12 +67,11 @@ const Plots = ({classes, history}) => {
     <CssBaseline />
     <Typography>Plots page</Typography>
       <Plot
-
-        data={Data}
+        data={Ramen}
         layout={ {width: 1200, height: 900, title: 'Ramens'} }
       />
       <Plot
-        data={Data}
+        data={Ramen}
         layout={ {width: 1200, height: 900, title: 'Ramens'} }
       />
   </>
