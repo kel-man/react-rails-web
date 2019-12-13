@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 })
 
-const NavBar = ({classes, history}) => {
+const NavBar = ({ classes, history }) => {
   const authContext = useContext(AuthContext)
 
   const logout = () => {
@@ -24,69 +24,45 @@ const NavBar = ({classes, history}) => {
       },
       method: 'DELETE',
       url: '/users/sign_out',
-    })
-    .then(()=>window.location = '/')
+    }).then(() => (window.location = '/'))
   }
 
-  return(
+  return (
     <>
       <CssBaseline />
       <Box className={classes.container}>
-        <Button
-          color='inherit'
-          edge='start'
-          onClick={()=>history.push("/")}
-        >
+        <Button color="inherit" edge="start" onClick={() => history.push('/')}>
           Home
         </Button>
-        <Button
-          color='inherit'
-          onClick={()=>history.push("/_/plots")}
-        >
+        <Button color="inherit" onClick={() => history.push('/_/plots')}>
           Plots
         </Button>
-        <Button
-          color='inherit'
-          onClick={()=>history.push("/_/pricing")}
-        >
+        <Button color="inherit" onClick={() => history.push('/_/pricing')}>
           Pricing
         </Button>
-        <Button
-          color='inherit'
-          onClick={()=>history.push("/_/FAQ")}
-        >
+        <Button color="inherit" onClick={() => history.push('/_/Whiteboard')}>
+          Whiteboard
+        </Button>
+        <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
           F.A.Q.
         </Button>
-        {
-          !authContext.loggedIn &&
+        {!authContext.loggedIn && (
           <>
-            <Button
-              color='inherit'
-              onClick={()=>history.push("/_/signup")}
-            >
+            <Button color="inherit" onClick={() => history.push('/_/signup')}>
               Sign Up
             </Button>
-            <Button
-              color='inherit'
-              edge='end'
-              variant='outlined'
-              onClick={()=>history.push("/_/login")}
-            >
+            <Button color="inherit" edge="end" variant="outlined" onClick={() => history.push('/_/login')}>
               Log-in
             </Button>
           </>
-        }
-        {
-          authContext.loggedIn &&
+        )}
+        {authContext.loggedIn && (
           <>
-            <Button
-              color='inherit'
-              onClick={logout}
-            >
+            <Button color="inherit" onClick={logout}>
               Log Out
             </Button>
           </>
-        }
+        )}
       </Box>
     </>
   )

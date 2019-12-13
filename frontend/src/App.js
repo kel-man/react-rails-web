@@ -21,22 +21,23 @@ function App() {
       },
       method: 'GET',
       url: '/authstate',
-    }).then(response => {
-      console.log(response.data)
-      setAuthContext(response.data)
-    }).catch(error => {
     })
+      .then(response => {
+        console.log(response.data)
+        setAuthContext(response.data)
+      })
+      .catch(error => {})
   }, [])
 
   return (
     <div style={appStyle}>
       <AuthContext.Provider value={authContext}>
         <ThemeProvider theme={Theme}>
-          <AppRouter/>
+          <AppRouter />
         </ThemeProvider>
       </AuthContext.Provider>
     </div>
-  );
+  )
 }
 
 export default App

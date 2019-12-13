@@ -17,9 +17,9 @@ const styles = theme => ({
   },
   container: {
     display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexFlow: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexFlow: 'column',
   },
   textField: {
     marginBottom: '20px',
@@ -36,7 +36,7 @@ var Information = {
   },
 }
 
-const ramenRatings = require('../../data/ramen/ramen-ratings.json')
+var ramenRatings = require('../../data/ramen/ramen-ratings.json')
 ramenRatings.map(item => {
   Information.Ramen.ReviewNumber.push(item.Review)
   Information.Ramen.Brand.push(item.Brand)
@@ -44,6 +44,7 @@ ramenRatings.map(item => {
   Information.Ramen.Style.push(item.Style)
   Information.Ramen.Country.push(item.Country)
   Information.Ramen.Stars.push(item.Stars)
+  delete item['Top Ten']
   return null
 })
 
@@ -53,28 +54,22 @@ const Ramen = [
     y: Information.Ramen.Stars,
     type: 'scatter',
     mode: 'markers',
-    marker: {color: 'green'},
+    marker: { color: 'green' },
   },
   {
     type: 'bar',
     x: Information.Ramen.ReviewNumber,
     y: Information.Ramen.Stars,
-  }
+  },
 ]
 
-const Plots = ({classes, history}) => {
-  return(<>
-    <CssBaseline />
-    <Typography>Plots page</Typography>
-      <Plot
-        data={Ramen}
-        layout={ {width: 1200, height: 900, title: 'Ramens'} }
-      />
-      <Plot
-        data={Ramen}
-        layout={ {width: 1200, height: 900, title: 'Ramens'} }
-      />
-  </>
+const Plots = ({ classes, history }) => {
+  return (
+    <>
+      <CssBaseline />
+      <Typography>Plots page</Typography>
+      <Plot data={Ramen} layout={{ width: 1200, height: 900, title: 'Ramens' }} />
+    </>
   )
 }
 

@@ -145,6 +145,7 @@
     ]
   },
   "devDependencies": {
+    "prettier-eslint": "^9.0.1",
     "webpack-cli": "^3.3.10"
   }
 }
