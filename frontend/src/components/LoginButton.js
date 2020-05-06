@@ -18,6 +18,7 @@ if(context.loggedIn){
     <>
       <p>Component</p>
     </>
+}
 
 const LoginButton = ({classes}) => {
   return(

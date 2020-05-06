@@ -31,16 +31,27 @@ const NavBar = ({ classes, history }) => {
     <>
       <CssBaseline />
       <Box className={classes.container}>
-        <Button color="inherit" edge="start" onClick={() => history.push('/')}>
-          Home
-        </Button>
+        {!authContext.loggedIn && (
+          <>
+            <Button color="inherit" edge="start" onClick={() => history.push('/')}>
+              Home
+            </Button>
+          </>
+        )}
+        {authContext.loggedIn && (
+          <>
+            <Button color="inherit" edge="start" onClick={() => history.push('/_/whiteboard')}>
+              Home
+            </Button>
+          </>
+        )}
         <Button color="inherit" onClick={() => history.push('/_/plots')}>
           Plots
         </Button>
         <Button color="inherit" onClick={() => history.push('/_/pricing')}>
           Pricing
         </Button>
-        <Button color="inherit" onClick={() => history.push('/_/Whiteboard')}>
+        <Button color="inherit" onClick={() => history.push('/_/whiteboard')}>
           Whiteboard
         </Button>
         <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
@@ -51,7 +62,7 @@ const NavBar = ({ classes, history }) => {
             <Button color="inherit" onClick={() => history.push('/_/signup')}>
               Sign Up
             </Button>
-            <Button color="inherit" edge="end" variant="outlined" onClick={() => history.push('/_/login')}>
+            <Button color="inherit" edge="end" variant="outlined" onClick={() => history.push('/')}>
               Log-in
             </Button>
           </>

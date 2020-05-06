@@ -1,43 +1,26 @@
 import React, { useState } from 'react'
-import { Container, CssBaseline, Typography } from '@material-ui/core'
+import { Editor, EditorState } from 'draft-js'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import ReactQuill from 'react-quill'
+import { Typography } from '@material-ui/core/'
 
 const styles = theme => ({
-  form: {
-    display: 'flex',
-    flexFlow: 'column',
-    maxWidth: '500px',
-    padding: '20px',
-    justifyContent: 'center',
-    backgroundColor: theme.ash,
-  },
   container: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexFlow: 'column',
+    flexFlow: 'row',
+    background: 'linear-gradient(to right, #66bb6a, #004d40)',
+    justifyContent: 'flex-end',
   },
 })
 
-const Whiteboard = ({ history }) => {
-  const [quillValues, setQuillValues] = useState({
-    text: '',
-  })
-  const handleChange = e => {
-    const { value } = e.target
-    setQuillValues({
-      text: value,
-    })
-  }
+const Whiteboard = () => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  console.log(editorState)
+
   return (
     <>
-      <CssBaseline />
-      <Container>
-        <Typography>Your Board</Typography>
-        <ReactQuill value={quillValues} onChange={handleChange} />
-      </Container>
+      <Typography>This is some typography that should render</Typography>
+      <Editor editorState={editorState} onChange={setEditorState} />
     </>
   )
 }

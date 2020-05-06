@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Button,
   Card,
@@ -12,8 +12,8 @@ import {
   Container,
   Box,
 } from '@material-ui/core'
-import StarIcon from '@material-ui/icons/StarBorder';
-import { makeStyles } from '@material-ui/core/styles';
+import StarIcon from '@material-ui/icons/StarBorder'
+import { makeStyles } from '@material-ui/core/styles'
 
 function Copyright() {
   return (
@@ -25,7 +25,7 @@ function Copyright() {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles(theme => ({
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(6),
     },
   },
-}));
+}))
 
 const tiers = [
   {
@@ -89,28 +89,18 @@ const tiers = [
     title: 'Pro',
     subheader: 'Most popular',
     price: '15',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
-    ],
+    description: ['20 users included', '10 GB of storage', 'Help center access', 'Priority email support'],
     buttonText: 'Get started',
     buttonVariant: 'contained',
   },
   {
     title: 'Enterprise',
     price: '30',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
-    ],
+    description: ['50 users included', '30 GB of storage', 'Help center access', 'Phone & email support'],
     buttonText: 'Contact us',
     buttonVariant: 'outlined',
   },
-];
+]
 const footers = [
   {
     title: 'Company',
@@ -128,13 +118,13 @@ const footers = [
     title: 'Legal',
     description: ['Privacy policy', 'Terms of use'],
   },
-];
+]
 
 export default function Pricing() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       {/*  <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
@@ -163,10 +153,11 @@ export default function Pricing() {
           Pricing
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Quickly build an effective pricing table for your potential customers with this layout.
-          It&apos;s built with default Material-UI components with little customization.
+          Quickly build an effective pricing table for your potential customers with this layout. It&apos;s built with
+          default Material-UI components with little customization.
         </Typography>
       </Container>
+
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
@@ -234,6 +225,6 @@ export default function Pricing() {
         </Box>
       </Container>
       {/* End footer */}
-    </React.Fragment>
-  );
+    </>
+  )
 }

@@ -11,7 +11,7 @@ import {
   Link,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
@@ -44,20 +44,19 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 const HomePage = () => {
+  const classes = useStyles()
 
-  const classes = useStyles();
-
-  const [ values, setValues ] = useState({
+  const [values, setValues] = useState({
     email: '',
     password: '',
   })
 
   const inputChange = e => {
     const { name, value } = e.target
-    setValues({...values, [name]: value})
+    setValues({ ...values, [name]: value })
   }
 
   function Copyright() {
@@ -70,16 +69,12 @@ const HomePage = () => {
         {new Date().getFullYear()}
         {'.'}
       </Typography>
-    );
+    )
   }
 
   const onSubmit = e => {
     e.preventDefault()
-
-    const data = JSON.parse(JSON.stringify({...values}))
-
-
-    debugger
+    const data = JSON.parse(JSON.stringify({ ...values }))
     axios({
       headers: {
         'Content-Type': 'application/json',
@@ -89,10 +84,13 @@ const HomePage = () => {
       data: {
         user: data,
       },
-    }).then(response => {
-      window.location = "/"
-    }).catch(error => {console.log(error)
     })
+      .then(response => {
+        window.location = '/'
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   return (
@@ -130,17 +128,8 @@ const HomePage = () => {
               autoComplete="current-password"
               onChange={inputChange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
               Sign In
             </Button>
             <Grid container>
@@ -162,7 +151,7 @@ const HomePage = () => {
         </div>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 export default withRouter(HomePage)
