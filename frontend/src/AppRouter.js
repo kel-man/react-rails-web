@@ -7,6 +7,7 @@ import Navbar from './components/NavBar'
 import Plots from './views/Plots/'
 import Pricing from './views/Pricing/'
 import Whiteboard from './views/Whiteboard/'
+import Checklist from './views/Checklist/'
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
           <Route path="/_/whiteboard" component={Whiteboard} />
           <Route path="/_/signup" component={SignUp} />
           <Route path="/_/homepage" component={HomePage} />
+          <Route path="/_/checklist" component={Checklist} />
           <Route path="/" component={HomePage} />
         </Switch>
       </Router>

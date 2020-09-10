@@ -13,6 +13,7 @@ RUN bundle update --bundler
 
 RUN bundle install
 
+RUN echo "export PATH=/usr/src/app/bin:$PATH" > ~/.bash_profile
 COPY . /usr/src/app
 
 ENTRYPOINT ["./start_docker.sh"]

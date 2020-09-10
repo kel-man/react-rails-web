@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   get 'authstate' => 'auth_context#index'
 
-  resource :profiles, only: [:show, :index]
+  resources :profiles, only: [:show, :index]
+  resources :items, only: [:index]
+  post '/items' => 'items#create'
 
   get '*path' => 'static_pages#index'
 end

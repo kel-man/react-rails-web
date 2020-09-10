@@ -54,6 +54,9 @@ const NavBar = ({ classes, history }) => {
         <Button color="inherit" onClick={() => history.push('/_/whiteboard')}>
           Whiteboard
         </Button>
+        <Button color="inherit" onClick={() => history.push('/_/Checklist')}>
+          Checklist
+        </Button>
         <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
           F.A.Q.
         </Button>
