@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   get 'authstate' => 'auth_context#index'
 
   resources :profiles, only: [:show, :index]
-  resources :items, only: [:index]
+  resources :items, only: [:index, :show]
   post '/items' => 'items#create'
+  # get '/items/:id' => 'items#show'
+  patch '/items/:id' => 'items#update'
+  delete '/items/:id' => 'items#destroy'
 
   get '*path' => 'static_pages#index'
 end

@@ -32,6 +32,7 @@ const styles = theme => ({
 
 const Checklist = ({ history }) => {
   const [items, setItems] = useState([])
+  const [newItem, setNewItem] = useState([])
 
   useEffect(() => {
     axios({
@@ -48,9 +49,14 @@ const Checklist = ({ history }) => {
       .catch(error => {})
   }, [])
 
-  const inputChange = e => {
-    const { name, value } = e.target
-    setValues({ ...values, [name]: value })
+  const changeTopic = e => {
+    const { key, value } = e.target
+    setNewItem({ ...newItem, [key]: value })
+  }
+
+  const changeContents = e => {
+    const { key, value } = e.target
+    setNewItem({ ...newItem, [key]: value })
   }
 
   const onSubmit = e => {
@@ -61,7 +67,7 @@ const Checklist = ({ history }) => {
         contentType: 'application/json',
       },
       method: 'POST',
-      url: '/listItems',
+      url: '/items#create',
       data: {
         item: data,
       },
@@ -75,14 +81,20 @@ const Checklist = ({ history }) => {
       <CssBaseline />
       <Container>
         <Typography>Checklist</Typography>
+        <TextField key="topic" label="topic" onChange={changeTopic}>
+          Topic
+        </TextField>
+        <TextField key="contents" label="contents" onChange={changeContents}>
+          Contents
+        </TextField>
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
         {items.map(item => (
           <li key={item.id}>
             {item.topic}:{item.contents}
           </li>
         ))}
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
       </Container>
     </>
   )
