@@ -32,7 +32,8 @@ const styles = theme => ({
 
 const Checklist = ({ history }) => {
   const [items, setItems] = useState([])
-  const [newItem, setNewItem] = useState([])
+  const [newItem, setNewItem] = useState({ topic: '', contents: '' })
+  const [refresh, setRefresh] = useState(0)
 
   useEffect(() => {
     axios({
@@ -47,34 +48,68 @@ const Checklist = ({ history }) => {
         setItems(response.data.items)
       })
       .catch(error => {})
-  }, [])
+  }, [refresh])
 
   const changeTopic = e => {
     const { key, value } = e.target
-    setNewItem({ ...newItem, [key]: value })
+    setNewItem({ ...newItem, topic: value })
   }
 
   const changeContents = e => {
     const { key, value } = e.target
-    setNewItem({ ...newItem, [key]: value })
+    setNewItem({ ...newItem, contents: value })
   }
 
   const onSubmit = e => {
-    e.preventDefault()
-    const data = { ...values }
+    // e.preventDefault()
+    const data = { topic: newItem.topic, contents: newItem.contents }
     axios({
       headers: {
         contentType: 'application/json',
       },
       method: 'POST',
-      url: '/items#create',
+      url: '/items',
       data: {
         item: data,
       },
     })
-      .then(response => {})
+      .then(response => {
+        console.log(response)
+        setRefresh(refresh + 1)
+        setNewItem({})
+      })
       .catch(error => {})
   }
+
+  const onDelete = id => {
+    console.log('/items#{' + id + '}')
+    axios({
+      headers: {
+        contentType: 'application/json',
+      },
+      method: 'DELETE',
+      url: `/items/${id}`,
+      data: { id },
+    })
+      .then(response => {
+        console.log(response)
+        setRefresh(refresh + 1)
+      })
+      .catch(error => console.log(error))
+  }
+
+  // const updateItem = id => {
+  //   axios({
+  //     headers: {
+  //       contentType: 'application.json',
+  //     }
+  //     method: 'PATCH',
+  //     url: '/items',
+  //     data: { data },
+  //   }).then(response => {
+  //     console.log(response)
+  //   }).catch(error => {})
+  // }
 
   return (
     <>
@@ -82,17 +117,26 @@ const Checklist = ({ history }) => {
       <Container>
         <Typography>Checklist</Typography>
         <TextField key="topic" label="topic" onChange={changeTopic}>
-          Topic
+          topic
         </TextField>
         <TextField key="contents" label="contents" onChange={changeContents}>
           Contents
         </TextField>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" onClick={onSubmit}>
           Save
         </Button>
         {items.map(item => (
           <li key={item.id}>
-            {item.topic}:{item.contents}
+            {item.topic} : {item.contents}
+            <Button
+              key={item.id}
+              onClick={() => {
+                onDelete(item.id)
+              }}
+            >
+              Delete
+            </Button>
+            {/* <Button type="update" key={item.id} onClick={()=>{updateItem(item.id)}}>Update</Button> */}
           </li>
         ))}
       </Container>

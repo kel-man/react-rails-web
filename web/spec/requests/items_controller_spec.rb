@@ -54,6 +54,13 @@ describe 'ItemsController', type: :request do
       expect{ request }.to change{ Item.count }.by ( 1 )
       expect(JSON.parse(response.body)).to include expected_response
     end
+    context 'params are empty' do
+      let(:item_topic) { '' }
+      let(:item_contents) { '' }
+      it 'does not allow empty inputs' do
+        expect{ request }.to change{ Item.count }.by ( 0 )
+      end
+    end
   end
 
   describe 'show' do
@@ -102,8 +109,7 @@ describe 'ItemsController', type: :request do
       }]
     }.to_json }
     it 'destroys item2 from the database' do
-      request
-      # expect{ request }.to change{ Item.count }.by ( -1 )
+      expect{ request }.to change{ Item.count }.by ( -1 )
       expect(response).to be_success
       get '/items'
       expect(response.body).to eq expected_response

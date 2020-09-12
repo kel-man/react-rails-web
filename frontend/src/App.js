@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import './App.css'
 import AppRouter from './AppRouter'
 import axios from 'axios'
@@ -13,6 +14,7 @@ const appStyle = {
 
 function App() {
   const [authContext, setAuthContext] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios({
@@ -25,6 +27,7 @@ function App() {
       .then(response => {
         console.log(response.data)
         setAuthContext(response.data)
+        setLoading(false)
       })
       .catch(error => {})
   }, [])
@@ -33,7 +36,8 @@ function App() {
     <div style={appStyle}>
       <AuthContext.Provider value={authContext}>
         <ThemeProvider theme={Theme}>
-          <AppRouter />
+          {!loading && <AppRouter />}
+          {loading && <CircularProgress />}
         </ThemeProvider>
       </AuthContext.Provider>
     </div>
