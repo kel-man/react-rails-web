@@ -29,7 +29,9 @@ function App() {
         setAuthContext(response.data)
         setLoading(false)
       })
-      .catch(error => {})
+      .catch(error => {
+        setLoading(false)
+      })
   }, [])
 
   return (

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Button,
   Container,
   CssBaseline,
@@ -12,7 +20,9 @@ import {
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
+import NoteIcon from '@material-ui/icons/Note'
 
+const drawerWidth = 240
 const styles = theme => ({
   form: {
     display: 'flex',
@@ -22,18 +32,23 @@ const styles = theme => ({
     justifyContent: 'center',
     backgroundColor: theme.ash,
   },
+  drawer: {
+    marginTop: '50px',
+    width: drawerWidth,
+  },
   container: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: drawerWidth,
+    alignItems: 'left',
     flexFlow: 'column',
   },
 })
 
-const Checklist = ({ history }) => {
+const Checklist = ({ classes, history }) => {
   const [items, setItems] = useState([])
-  const [newItem, setNewItem] = useState({ topic: '', contents: '' })
+  const [editItem, setEditItem] = useState({ topic: '', contents: '' })
   const [refresh, setRefresh] = useState(0)
+  const [currentItem, setCurrentItem] = useState({})
 
   useEffect(() => {
     axios({
@@ -52,33 +67,49 @@ const Checklist = ({ history }) => {
 
   const changeTopic = e => {
     const { key, value } = e.target
-    setNewItem({ ...newItem, topic: value })
+    setEditItem({ ...editItem, topic: value })
   }
 
   const changeContents = e => {
     const { key, value } = e.target
-    setNewItem({ ...newItem, contents: value })
+    setEditItem({ ...editItem, contents: value })
   }
 
   const onSubmit = e => {
     // e.preventDefault()
-    const data = { topic: newItem.topic, contents: newItem.contents }
-    axios({
-      headers: {
-        contentType: 'application/json',
-      },
-      method: 'POST',
-      url: '/items',
-      data: {
-        item: data,
-      },
-    })
-      .then(response => {
-        console.log(response)
-        setRefresh(refresh + 1)
-        setNewItem({})
-      })
-      .catch(error => {})
+    const data = { topic: editItem.topic, contents: editItem.contents }
+    !'id' in editItem
+      ? axios({
+          headers: {
+            contentType: 'application/json',
+          },
+          method: 'POST',
+          url: '/items',
+          data: {
+            item: data,
+          },
+        })
+          .then(response => {
+            console.log(response)
+            setRefresh(refresh + 1)
+            setNewItem({})
+          })
+          .catch(error => {})
+      : axios({
+          headers: {
+            contentType: 'application/json',
+          },
+          method: 'PATCH',
+          url: `/items/${editItem.id}`,
+          data: {
+            item: data,
+          },
+        })
+          .then(response => {
+            console.log(response)
+            setRefresh(refresh + 1)
+          })
+          .catch(error => {})
   }
 
   const onDelete = id => {
@@ -98,34 +129,38 @@ const Checklist = ({ history }) => {
       .catch(error => console.log(error))
   }
 
-  // const updateItem = id => {
-  //   axios({
-  //     headers: {
-  //       contentType: 'application.json',
-  //     }
-  //     method: 'PATCH',
-  //     url: '/items',
-  //     data: { data },
-  //   }).then(response => {
-  //     console.log(response)
-  //   }).catch(error => {})
-  // }
+  const expandItem = item => {
+    setCurrentItem(item)
+    setEditItem(item)
+    setRefresh(refresh + 1)
+    console.log(item)
+
+    // return (
+    //   <div>
+    //     <Typography>Topic</Typography>
+    //     <TextField defaultValue={item.topic}></TextField>
+    //     <Typography>Contents</Typography>
+    //     <TextField defaultValue={item.contents}>Some Stuff</TextField>
+    //   </div>
+    // )
+  }
 
   return (
     <>
       <CssBaseline />
-      <Container>
+      <Container className={classes.container}>
         <Typography>Checklist</Typography>
-        <TextField key="topic" label="topic" onChange={changeTopic}>
-          topic
-        </TextField>
-        <TextField key="contents" label="contents" onChange={changeContents}>
-          Contents
-        </TextField>
         <Button variant="contained" type="submit" onClick={onSubmit}>
           Save
         </Button>
-        {items.map(item => (
+        <Typography>Item Topic</Typography>
+        <TextField key="currentTopic" value={editItem.topic} onChange={changeTopic} />
+        <Typography>Details</Typography>
+        <TextField key="currentItem" value={editItem.contents} onChange={changeContents} />
+        <Button key={currentItem.id} onClick={() => onDelete(currentItem.id)}>
+          Delete
+        </Button>
+        {/*items.map(item => (
           <li key={item.id}>
             {item.topic} : {item.contents}
             <Button
@@ -136,10 +171,21 @@ const Checklist = ({ history }) => {
             >
               Delete
             </Button>
-            {/* <Button type="update" key={item.id} onClick={()=>{updateItem(item.id)}}>Update</Button> */}
           </li>
-        ))}
+        ))*/}
       </Container>
+      <Drawer variant="permanent" anchor="left" classes={{ paper: classes.drawer }}>
+        <div />
+        <Divider />
+        <List>
+          {items.map(item => (
+            <ListItem button key={item.topic} onClick={() => expandItem(item)}>
+              <NoteIcon></NoteIcon>
+              <ListItemText primary={item.topic} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </>
   )
 }

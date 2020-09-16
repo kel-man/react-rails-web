@@ -7,6 +7,7 @@ import axios from 'axios'
 
 const styles = theme => ({
   container: {
+    height: '50px',
     display: 'flex',
     flexFlow: 'row',
     background: 'linear-gradient(to right, #66bb6a, #004d40)',
