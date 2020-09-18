@@ -1,27 +1,37 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!
 
   def create
-    @item = Item.create(item_params)
+    @item = Item.create(item_params.merge({user_id: current_user.id}))
     render('show')
   end
 
   def update
-    @item = Item.find(params[:id])
-    @item.update(item_params)
-    render('show')
+    @item = Item.find_by({id: params[:id], user_id: current_user.id,})
+    if @item
+      @item.update(item_params)
+      render('show')
+    else
+      head 404
+    end
   end
 
   def show
-    @item = Item.find(params[:id])
+    @item = Item.find_by({id: params[:id], user_id: current_user.id,})
+    head 404 unless @item
   end
 
   def destroy
-    @item = Item.find(params[:id])
-    @item.destroy
+    @item = Item.find_by({id: params[:id], user_id: current_user.id,})
+    if @item
+      @item.destroy
+    else
+      head 404
+    end
   end
 
   def index
-    @items = Item.all
+    @items = Item.where({user_id: current_user.id})
   end
 
   private

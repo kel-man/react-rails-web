@@ -42,13 +42,16 @@ const styles = theme => ({
     alignItems: 'left',
     flexFlow: 'column',
   },
+  editSave: {
+    maxWidth: '75px',
+    display: 'inline-block',
+  },
 })
 
 const Checklist = ({ classes, history }) => {
   const [items, setItems] = useState([])
   const [editItem, setEditItem] = useState({ topic: '', contents: '' })
   const [refresh, setRefresh] = useState(0)
-  const [currentItem, setCurrentItem] = useState({})
 
   useEffect(() => {
     axios({
@@ -94,7 +97,9 @@ const Checklist = ({ classes, history }) => {
             setRefresh(refresh + 1)
             setNewItem({})
           })
-          .catch(error => {})
+          .catch(error => {
+            console.log(error)
+          })
       : axios({
           headers: {
             contentType: 'application/json',
@@ -109,11 +114,12 @@ const Checklist = ({ classes, history }) => {
             console.log(response)
             setRefresh(refresh + 1)
           })
-          .catch(error => {})
+          .catch(error => {
+            console.log(error)
+          })
   }
 
   const onDelete = id => {
-    console.log('/items#{' + id + '}')
     axios({
       headers: {
         contentType: 'application/json',
@@ -130,19 +136,13 @@ const Checklist = ({ classes, history }) => {
   }
 
   const expandItem = item => {
-    setCurrentItem(item)
     setEditItem(item)
     setRefresh(refresh + 1)
-    console.log(item)
+  }
 
-    // return (
-    //   <div>
-    //     <Typography>Topic</Typography>
-    //     <TextField defaultValue={item.topic}></TextField>
-    //     <Typography>Contents</Typography>
-    //     <TextField defaultValue={item.contents}>Some Stuff</TextField>
-    //   </div>
-    // )
+  const newItem = () => {
+    setEditItem({ topic: '', contents: '' })
+    setRefresh(refresh + 1)
   }
 
   return (
@@ -150,32 +150,22 @@ const Checklist = ({ classes, history }) => {
       <CssBaseline />
       <Container className={classes.container}>
         <Typography>Checklist</Typography>
-        <Button variant="contained" type="submit" onClick={onSubmit}>
-          Save
-        </Button>
         <Typography>Item Topic</Typography>
         <TextField key="currentTopic" value={editItem.topic} onChange={changeTopic} />
         <Typography>Details</Typography>
         <TextField key="currentItem" value={editItem.contents} onChange={changeContents} />
-        <Button key={currentItem.id} onClick={() => onDelete(currentItem.id)}>
-          Delete
-        </Button>
-        {/*items.map(item => (
-          <li key={item.id}>
-            {item.topic} : {item.contents}
-            <Button
-              key={item.id}
-              onClick={() => {
-                onDelete(item.id)
-              }}
-            >
-              Delete
-            </Button>
-          </li>
-        ))*/}
+        <Container className={classes.editSave}>
+          <Button variant="contained" type="submit" onClick={onSubmit}>
+            Save
+          </Button>
+          <Button key={editItem.id} onClick={() => onDelete(editItem.id)}>
+            Delete
+          </Button>
+        </Container>
       </Container>
       <Drawer variant="permanent" anchor="left" classes={{ paper: classes.drawer }}>
         <div />
+        <Button onClick={newItem}>Create new</Button>
         <Divider />
         <List>
           {items.map(item => (

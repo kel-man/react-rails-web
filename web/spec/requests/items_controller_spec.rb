@@ -1,17 +1,33 @@
 require 'rails_helper'
 
 describe 'ItemsController', type: :request do
-  let(:item1) { Item.create({
+  let(:user) {User.create!({
+    email: 'kyyafuso@gmail.com',
+    password: 'password',
+  }) }
+  let(:user2) {User.create!({
+    email: 'fakeemail@gmail.com',
+    password: 'password',
+  }) }
+  let(:item1) { Item.create!({
+    user_id: user.id,
     topic: 'Item1 Topic',
     contents: 'Item1 Contents',
   }) }
-
-  let(:item2) { Item.create({
+  let(:item2) { Item.create!({
+    user_id: user.id,
     topic: 'Second Topic',
     contents: 'Second Contents',
   }) }
+  let(:foreign_item) { Item.create!({
+    user_id: user2.id,
+    topic: 'do not show',
+    contents: 'foreign contents',
+  }) }
 
   before do
+    foreign_item
+    sign_in(user)
     item1
     item2
   end
@@ -73,6 +89,14 @@ describe 'ItemsController', type: :request do
     it 'shows item2 in the database' do
       request
       expect(response.body).to eq expected_response
+    end
+    context 'item belongs to another user' do
+      let(:request) { get "/items/#{foreign_item.id}" }
+      let(:expected_response_status) { 404 }
+      it 'returns 404 not found' do
+        request
+        expect(response.status).to eq expected_response_status
+      end
     end
   end
 
