@@ -145,6 +145,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.24.2",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.5",
     "prettier-eslint": "^9.0.1",
     "webpack-cli": "^3.3.10"
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import { CssBaseline, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import Plot from 'react-plotly.js'
+// import Plot from 'react-plotly.js'
 
 // const Plotly = require('plotly.js-dist')
 
@@ -68,7 +68,7 @@ const Plots = ({ classes, history }) => {
     <>
       <CssBaseline />
       <Typography>Plots page</Typography>
-      <Plot data={Ramen} layout={{ width: 1200, height: 900, title: 'Ramens' }} />
+      {/* <Plot data={Ramen} layout={{ width: 1200, height: 900, title: 'Ramens' }} /> */}
     </>
   )
 }

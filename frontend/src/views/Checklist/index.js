@@ -21,6 +21,7 @@ import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 import NoteIcon from '@material-ui/icons/Note'
+import BorderColorIcon from '@material-ui/icons/BorderColor'
 
 const drawerWidth = 240
 const styles = theme => ({
@@ -45,6 +46,20 @@ const styles = theme => ({
   editSave: {
     maxWidth: '75px',
     display: 'inline-block',
+  },
+  topicInput: {
+    marginLeft: '150px',
+    marginRight: '250px',
+  },
+  contentsInput: {
+    marginTop: '20px',
+    height: '640px',
+    marginLeft: '50px',
+    marginRight: '100px',
+  },
+  header: {
+    alignSelf: 'center',
+    marginTop: '30px',
   },
 })
 
@@ -81,7 +96,7 @@ const Checklist = ({ classes, history }) => {
   const onSubmit = e => {
     // e.preventDefault()
     const data = { topic: editItem.topic, contents: editItem.contents }
-    !'id' in editItem
+    !('id' in editItem)
       ? axios({
           headers: {
             contentType: 'application/json',
@@ -149,11 +164,30 @@ const Checklist = ({ classes, history }) => {
     <>
       <CssBaseline />
       <Container className={classes.container}>
-        <Typography>Checklist</Typography>
-        <Typography>Item Topic</Typography>
-        <TextField key="currentTopic" value={editItem.topic} onChange={changeTopic} />
-        <Typography>Details</Typography>
-        <TextField key="currentItem" value={editItem.contents} onChange={changeContents} />
+        <Typography variant="h3" className={classes.header}>
+          Checklist
+        </Typography>
+        <TextField
+          key="currentTopic"
+          value={editItem.topic}
+          label="Item Topic"
+          onChange={changeTopic}
+          className={classes.topicInput}
+          inputProps={{
+            'data-testid': 'topic',
+          }}
+        />
+        <TextField
+          key="currentItem"
+          variant="outlined"
+          label="Item Contents"
+          data-testid="contents"
+          multiline
+          rows={30}
+          value={editItem.contents}
+          onChange={changeContents}
+          className={classes.contentsInput}
+        />
         <Container className={classes.editSave}>
           <Button variant="contained" type="submit" onClick={onSubmit}>
             Save
@@ -170,8 +204,17 @@ const Checklist = ({ classes, history }) => {
         <List>
           {items.map(item => (
             <ListItem button key={item.topic} onClick={() => expandItem(item)}>
-              <NoteIcon></NoteIcon>
-              <ListItemText primary={item.topic} />
+              {item.id == editItem.id && (
+                <>
+                  <BorderColorIcon />
+                </>
+              )}
+              {item.id !== editItem.id && (
+                <>
+                  <NoteIcon />
+                </>
+              )}
+              <ListItemText style={{ marginLeft: '5px' }} primary={item.topic} />
             </ListItem>
           ))}
         </List>
