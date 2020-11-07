@@ -22,7 +22,7 @@ gem 'nokogiri', '1.10.4'
 
 gem 'devise', '4.7.1'
 gem 'awesome_print'
-gem 'dotenv'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri

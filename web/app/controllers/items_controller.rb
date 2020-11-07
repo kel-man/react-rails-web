@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = Item.where({user_id: current_user.id})
+    @items = Item.where({user_id: current_user.id}).order(updated_at: :desc)
   end
 
   private

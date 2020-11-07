@@ -19,6 +19,7 @@ services:
       context: ./frontend
     volumes:
       - ./frontend:/usr/src/app/
+      - server_node_modules:/usr/src/app/node_modules
       - ./web/static:/usr/src/web/static
     ports:
       - 3000:3000
@@ -30,3 +31,7 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     ports:
       - 5432
+
+volumes:
+  server_node_modules:
+

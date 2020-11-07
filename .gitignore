@@ -2,5 +2,6 @@
 **.swo
 
 .env
+.DS_Store
 
 /data

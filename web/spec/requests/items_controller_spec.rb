@@ -36,19 +36,19 @@ describe 'ItemsController', type: :request do
     let(:request) { get '/items' }
     let(:expected_response) { {
       items: [{
-        id: item1.id,
-        topic: item1.topic,
-        contents: item1.contents,
+        "id" => item1.id,
+        "topic" => item1.topic,
+        "contents" => item1.contents,
       }, {
-        id: item2.id,
-        topic: item2.topic,
-        contents: item2.contents,
+        "id" => item2.id,
+        "topic" => item2.topic,
+        "contents" => item2.contents,
         }]
-    }.to_json }
+    } }
 
     it 'returns a list of items in JSON' do
       request
-      expect(response.body).to eq expected_response
+      expect(JSON.parse(response.body)).to include expected_response
     end
   end
 
@@ -85,6 +85,7 @@ describe 'ItemsController', type: :request do
       id: item2.id,
       topic: item2.topic,
       contents: item2.contents,
+      updated_at: item2.updated_at,
     }.to_json }
     it 'shows item2 in the database' do
       request
@@ -111,14 +112,17 @@ describe 'ItemsController', type: :request do
         contents: changed_contents,
       }
     } }
+    let(:request2) { get "/items/#{item2.id}" }
     let(:expected_response) { {
-      id: item2.id,
-      topic: changed_topic,
-      contents: changed_contents,
-    }.to_json }
+      "id" => item2.id,
+      "topic" => changed_topic,
+      "contents" => changed_contents,
+    } }
     it 'edits the topic and contents of item2' do
       request
-      expect(response.body).to eq expected_response
+      expect(response.status).to eq 200
+      request2
+      expect(JSON.parse(response.body)).to include expected_response
       expect(item2.reload.topic).to eq changed_topic
     end
   end
@@ -127,16 +131,16 @@ describe 'ItemsController', type: :request do
     let(:request) { delete "/items/#{item2.id}" }
     let(:expected_response) { {
       items: [{
-        id: item1.id,
-        topic: item1.topic,
-        contents: item1.contents,
+        "id" => item1.id,
+        "topic" => item1.topic,
+        "contents" => item1.contents,
       }]
-    }.to_json }
+    } }
     it 'destroys item2 from the database' do
       expect{ request }.to change{ Item.count }.by ( -1 )
-      expect(response).to be_success
+      expect(response.status).to eq 204
       get '/items'
-      expect(response.body).to eq expected_response
+      expect(JSON.parse(response.body)).to include expected_response
     end
   end
 end

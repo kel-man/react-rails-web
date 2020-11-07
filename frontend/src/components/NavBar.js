@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import AuthContext from '../AuthContext'
-import { Box, Button, CssBaseline } from '@material-ui/core'
+import { Box, Button, CssBaseline, Typography } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
@@ -10,8 +10,17 @@ const styles = theme => ({
     height: '50px',
     display: 'flex',
     flexFlow: 'row',
-    background: 'linear-gradient(to right, #66bb6a, #004d40)',
+    background: '#004d40',
+    justifyContent: 'space-between',
+  },
+  welcome: {
+    alignSelf: 'center',
+    justifySelf: 'flex-start',
+    marginLeft: '20px',
+  },
+  buttons: {
     justifyContent: 'flex-end',
+    alignSelf: 'center',
   },
 })
 
@@ -30,54 +39,57 @@ const NavBar = ({ classes, history }) => {
 
   return (
     <>
-      <CssBaseline />
       <Box className={classes.container}>
-        {!authContext.loggedIn && (
-          <>
-            <Button color="inherit" edge="start" onClick={() => history.push('/')}>
-              Home
-            </Button>
-          </>
-        )}
-        {authContext.loggedIn && (
-          <>
-            <Button color="inherit" edge="start" onClick={() => history.push('/_/whiteboard')}>
-              Home
-            </Button>
-          </>
-        )}
-        <Button color="inherit" onClick={() => history.push('/_/plots')}>
-          Plots
-        </Button>
-        <Button color="inherit" onClick={() => history.push('/_/pricing')}>
-          Pricing
-        </Button>
-        <Button color="inherit" onClick={() => history.push('/_/whiteboard')}>
-          Whiteboard
-        </Button>
-        <Button color="inherit" onClick={() => history.push('/_/Checklist')}>
-          Checklist
-        </Button>
-        <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
-          F.A.Q.
-        </Button>
-        {!authContext.loggedIn && (
-          <>
-            <Button color="inherit" onClick={() => history.push('/_/signup')}>
-              Sign Up
-            </Button>
-            <Button color="inherit" edge="end" variant="outlined" onClick={() => history.push('/')}>
-              Log-in
-            </Button>
-          </>
-        )}
-        {authContext.loggedIn && (
-          <>
-            <Button color="inherit" onClick={logout}>
-              Log Out
-            </Button>
-          </>
-        )}
+        {authContext.loggedIn && <Typography className={classes.welcome}>Welcome, {authContext.username}</Typography>}
+        {!authContext.loggedIn && <div />}
+        <div className={classes.buttons}>
+          {!authContext.loggedIn && (
+            <>
+              <Button color="inherit" edge="start" onClick={() => history.push('/')}>
+                Home
+              </Button>
+            </>
+          )}
+          {authContext.loggedIn && (
+            <>
+              <Button color="inherit" edge="start" onClick={() => history.push('/_/checklist')}>
+                Home
+              </Button>
+            </>
+          )}
+          <Button color="inherit" onClick={() => history.push('/_/profile')}>
+            Profile
+          </Button>
+          <Button color="inherit" onClick={() => history.push('/_/pricing')}>
+            Pricing
+          </Button>
+          <Button color="inherit" onClick={() => history.push('/_/blog')}>
+            Blog
+          </Button>
+          <Button color="inherit" onClick={() => history.push('/_/Checklist')}>
+            Checklist
+          </Button>
+          <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
+            F.A.Q.
+          </Button>
+          {!authContext.loggedIn && (
+            <>
+              <Button color="inherit" onClick={() => history.push('/_/signup')}>
+                Sign Up
+              </Button>
+              <Button color="inherit" edge="end" variant="outlined" onClick={() => history.push('/')}>
+                Log-in
+              </Button>
+            </>
+          )}
+          {authContext.loggedIn && (
+            <>
+              <Button color="inherit" onClick={logout}>
+                Log Out
+              </Button>
+            </>
+          )}
+        </div>
       </Box>
     </>
   )

@@ -77,7 +77,7 @@ const Checklist = ({ classes, history }) => {
       url: '/items',
     })
       .then(response => {
-        console.log('response: ', response)
+        console.log('response: ', response.data)
         setItems(response.data.items)
       })
       .catch(error => {})
@@ -94,7 +94,6 @@ const Checklist = ({ classes, history }) => {
   }
 
   const onSubmit = e => {
-    // e.preventDefault()
     const data = { topic: editItem.topic, contents: editItem.contents }
     !('id' in editItem)
       ? axios({
@@ -108,9 +107,8 @@ const Checklist = ({ classes, history }) => {
           },
         })
           .then(response => {
-            console.log(response)
             setRefresh(refresh + 1)
-            setNewItem({})
+            expandItem(response.data)
           })
           .catch(error => {
             console.log(error)
@@ -126,7 +124,6 @@ const Checklist = ({ classes, history }) => {
           },
         })
           .then(response => {
-            console.log(response)
             setRefresh(refresh + 1)
           })
           .catch(error => {
@@ -162,7 +159,6 @@ const Checklist = ({ classes, history }) => {
 
   return (
     <>
-      <CssBaseline />
       <Container className={classes.container}>
         <Typography variant="h3" className={classes.header}>
           Checklist

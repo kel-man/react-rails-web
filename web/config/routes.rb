@@ -7,12 +7,9 @@ Rails.application.routes.draw do
 
   get 'authstate' => 'auth_context#index'
 
-  resources :profiles, only: [:show, :index]
+  resources :profiles, only: [:show, :index, :create, :update, :destroy]
   resources :items, only: [:index, :show, :create, :update, :destroy]
-  # post '/items' => 'items#create'
-  # get '/items/:id' => 'items#show'
-  # patch '/items/:id' => 'items#update'
-  # delete '/items/:id' => 'items#destroy'
+  resources :blogs, only: [:index, :show, :create, :update, :destroy]
 
-  get '*path' => 'static_pages#index'
+  get '*path' => 'static_pages#index', constraints: lambda {|req| req.path.exclude? 'rails/active_storage'}
 end

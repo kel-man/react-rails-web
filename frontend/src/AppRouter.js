@@ -5,10 +5,11 @@ import HomePage from './views/HomePage/'
 import SignUp from './views/SignUp/'
 import FAQ from './views/FAQ/'
 import Navbar from './components/NavBar'
-import Plots from './views/Plots/'
+import UserProfile from './views/UserProfile/'
 import Pricing from './views/Pricing/'
 import Whiteboard from './views/Whiteboard/'
 import Checklist from './views/Checklist/'
+import Blog from './views/Blog/'
 
 const AppRouter = () => {
   const authContext = useContext(AuthContext)
@@ -18,9 +19,9 @@ const AppRouter = () => {
         <Navbar />
         <Switch>
           <Route path="/_/FAQ" component={FAQ} />
-          <Route path="/_/plots" component={Plots} />
+          <Route path="/_/profile" component={UserProfile} />
           <Route path="/_/pricing" component={Pricing} />
-          <Route path="/_/whiteboard" component={Whiteboard} />
+          <Route path="/_/blog" component={Blog} />
           <Route path="/_/signup" component={SignUp} />
           <Route path="/_/homepage" component={HomePage} />
           <Route path="/_/checklist" component={Checklist} />

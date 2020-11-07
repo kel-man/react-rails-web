@@ -1,3 +1,6 @@
 json.id @item.id
 json.topic @item.topic
 json.contents @item.contents
+if @item.updated_at
+  json.updated_at @item.updated_at
+end

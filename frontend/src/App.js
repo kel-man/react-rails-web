@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { CssBaseline } from '@material-ui/core'
 import './App.css'
 import AppRouter from './AppRouter'
 import axios from 'axios'
@@ -38,6 +39,7 @@ function App() {
     <div style={appStyle}>
       <AuthContext.Provider value={authContext}>
         <ThemeProvider theme={Theme}>
+          <CssBaseline />
           {!loading && <AppRouter />}
           {loading && <CircularProgress />}
         </ThemeProvider>

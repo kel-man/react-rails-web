@@ -28,3 +28,6 @@
 # ignore react build
 /static
 .env
+
+# ignore example images
+/storage
