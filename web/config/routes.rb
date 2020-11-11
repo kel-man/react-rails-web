@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, defaults: {format: :json}, controllers: {
+  # devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
+    confirmations: 'users/confirmations',
   }
   root 'static_pages#index'
 
