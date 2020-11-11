@@ -57,18 +57,22 @@ const NavBar = ({ classes, history }) => {
               </Button>
             </>
           )}
-          <Button color="inherit" onClick={() => history.push('/_/profile')}>
-            Profile
-          </Button>
+          {authContext.loggedIn && (
+            <Button color="inherit" onClick={() => history.push('/_/profile')}>
+              Profile
+            </Button>
+          )}
           <Button color="inherit" onClick={() => history.push('/_/pricing')}>
             Pricing
           </Button>
           <Button color="inherit" onClick={() => history.push('/_/blog')}>
             Blog
           </Button>
-          <Button color="inherit" onClick={() => history.push('/_/Checklist')}>
-            Checklist
-          </Button>
+          {authContext.loggedIn && (
+            <Button color="inherit" onClick={() => history.push('/_/Checklist')}>
+              Checklist
+            </Button>
+          )}
           <Button color="inherit" onClick={() => history.push('/_/FAQ')}>
             F.A.Q.
           </Button>
