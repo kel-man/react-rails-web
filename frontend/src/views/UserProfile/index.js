@@ -75,7 +75,7 @@ const UserProfile = ({ classes, history }) => {
     })
       .then(response => {
         setProfile(response.data)
-        console.log(response.data)
+        console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -120,7 +120,7 @@ const UserProfile = ({ classes, history }) => {
         contentType: 'application/json',
       },
       method: 'PATCH',
-      url: `/profiles/${profile.user_id}`,
+      url: `/profiles/${profile.id}`,
       data,
     })
       .then(response => {

@@ -9,10 +9,13 @@ describe 'ProfilesController', type: :request do
   let(:userprofile) {Profile.create!({
     user_id: user.id,
   }) }
+  let(:confirmation) { get "/users/confirmation?confirmation_token=#{user.confirmation_token}" }
 
   before do
-    sign_in(user)
+    user
     userprofile
+    confirmation
+    sign_in(user)
   end
 
   describe 'update' do
