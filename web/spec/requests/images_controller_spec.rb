@@ -11,7 +11,7 @@ describe 'ImagesController', type: :request do
     sign_in(user)
   end
 
-  describe 'it attaches the image to the user' do
+  it 'attaches the image to the user' do
     user.image.attach(io: File.open("#{Rails.root}/spec/fixtures/images/example.png"), filename: "attachment.png", content_type: "image/png")
     expect(user.image).to be_attached
   end

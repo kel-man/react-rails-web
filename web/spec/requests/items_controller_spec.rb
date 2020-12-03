@@ -4,10 +4,12 @@ describe 'ItemsController', type: :request do
   let(:user) {User.create!({
     email: 'kyyafuso@gmail.com',
     password: 'password',
+    confirmed_at: Time.now,
   }) }
   let(:user2) {User.create!({
     email: 'fakeemail@gmail.com',
     password: 'password',
+    confirmed_at: Time.now,
   }) }
   let(:item1) { Item.create!({
     user_id: user.id,
@@ -34,21 +36,23 @@ describe 'ItemsController', type: :request do
 
   describe 'index' do
     let(:request) { get '/items' }
-    let(:expected_response) { {
-      items: [{
+    let(:expected_items) {
+      [{
         "id" => item1.id,
         "topic" => item1.topic,
         "contents" => item1.contents,
+        "updated_at" => item1.updated_at.iso8601,
       }, {
         "id" => item2.id,
         "topic" => item2.topic,
         "contents" => item2.contents,
+        "updated_at" => item2.updated_at.iso8601,
         }]
-    } }
+    }
 
     it 'returns a list of items in JSON' do
       request
-      expect(JSON.parse(response.body)).to include expected_response
+      expect(JSON.parse(response.body)["items"]).to include(*expected_items)
     end
   end
 
@@ -130,10 +134,11 @@ describe 'ItemsController', type: :request do
   describe 'destroy' do
     let(:request) { delete "/items/#{item2.id}" }
     let(:expected_response) { {
-      items: [{
+      "items" => [{
         "id" => item1.id,
         "topic" => item1.topic,
         "contents" => item1.contents,
+        "updated_at" => item1.updated_at.iso8601,
       }]
     } }
     it 'destroys item2 from the database' do

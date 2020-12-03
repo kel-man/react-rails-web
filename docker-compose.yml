@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   web:
     build:
@@ -18,8 +18,13 @@ services:
     build:
       context: ./frontend
     volumes:
-      - ./frontend:/usr/src/app/
-      - server_node_modules:/usr/src/app/node_modules
+      - ./frontend/config:/usr/src/app/config
+      - ./frontend/src:/usr/src/app/src
+      - ./frontend/public:/usr/src/app/public
+      - ./frontend/start.sh:/usr/src/app/start.sh
+      - ./frontend/package-lock.json:/usr/src/app/package-lock.json
+      - ./frontend/package.json:/usr/src/app/package.json
+      - ./frontend/scripts:/usr/src/app/scripts
       - ./web/static:/usr/src/web/static
     ports:
       - 3000:3000
@@ -33,5 +38,4 @@ services:
       - 5432
 
 volumes:
-  server_node_modules:
-
+  node_modules:

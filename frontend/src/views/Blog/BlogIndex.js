@@ -3,6 +3,7 @@ import { Button, List, ListItem, ListItemText } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import SortBar from './SortBar'
 
 const styles = theme => ({
   container: {
@@ -23,6 +24,7 @@ const changeTimestampFormat = ts => {
 const BlogIndex = ({ classes, history }) => {
   const [posts, setPosts] = useState([])
   const [refresh, setRefresh] = useState(0)
+  const [sortMethod, setSortMethod] = useState('new')
 
   useEffect(() => {
     axios({
@@ -42,6 +44,7 @@ const BlogIndex = ({ classes, history }) => {
   return (
     <>
       <Button onClick={() => history.push('/_/blog/create')}>Post New Blog</Button>
+      <SortBar sortMethod={sortMethod} setSortMethod={setSortMethod} />
       <List>
         {posts.map(blog => {
           return (

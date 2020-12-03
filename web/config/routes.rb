@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show, :index, :create, :update, :destroy]
   resources :items, only: [:index, :show, :create, :update, :destroy]
   resources :blogs, only: [:index, :show, :create, :update, :destroy]
+  resources :blog_comments, only: [:index, :show, :create, :update, :destroy]
 
   get '*path' => 'static_pages#index', constraints: lambda {|req| req.path.exclude? 'rails/active_storage'}
 end

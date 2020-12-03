@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import CommentBox from './CommentBox'
 import { Typography, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
@@ -18,6 +19,7 @@ const BlogShow = ({ classes, history, match }) => {
     })
       .then(response => {
         setBlog(response.data)
+        console.log(response.data)
       })
       .catch(error => {})
   }, [])
@@ -26,6 +28,7 @@ const BlogShow = ({ classes, history, match }) => {
     <>
       <Typography key="title">{blog.title}</Typography>
       <Typography key="contents">{blog.contents}</Typography>
+      <CommentBox/>
       <Button onClick={() => history.push('/_/blog')}>Back to list</Button>
     </>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import BlogShow from './Show'
+import CommentBox from './'
 import { render, waitFor, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Router } from 'react-router-dom'
@@ -7,28 +7,29 @@ import { createMemoryHistory } from 'history'
 import axios from 'axios'
 
 jest.mock('axios')
-jest.mock('../../components/CommentBox', () => () => (<div>CommentBox</div>))
+// jest.mock('../../components/CommentBox', () => () => (<div>CommentBox</div>))
 describe('ui loads selected blog and can return to index', () => {
   const history = createMemoryHistory()
   const component = (
     <Router history={history}>
-      <BlogShow />
+      <CommentBox />
     </Router>
   )
-  it('loads the selected blog', async () => {
+  it('displays comments belonging to current blog in a list', async () => {
     axios.mockImplementationOnce(() =>
       Promise.resolve({
         data: {
-          id: '1',
-          title: 'Example title',
-          contents: 'Example contents',
+          blogComments: [{
+            id: '1',
+            comment: 'Example contents',
+          },]
         },
       })
     )
     render(component)
     await waitFor(() => {
-      expect(screen.getByText('Example title'))
       expect(screen.getByText('Example contents'))
     })
   })
+
 })

@@ -5,6 +5,7 @@ describe 'auth_context_controller', type: :request do
   let(:user) {User.create!({
     email: 'kyyafuso@gmail.com',
     password: 'password',
+    confirmed_at: Time.now,
   }) }
   context 'user is not logged in' do
     let(:expected_response_status) { 404 }
@@ -18,7 +19,8 @@ describe 'auth_context_controller', type: :request do
       sign_in user
     end
     let(:expected_response) { {
-      loggedIn: true
+      loggedIn: true,
+      username: user.email,
     }.to_json }
     it 'returns valid data' do
       request
