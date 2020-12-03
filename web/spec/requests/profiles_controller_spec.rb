@@ -5,6 +5,7 @@ describe 'ProfilesController', type: :request do
     email: 'admin@admin.com',
     password: 'password',
     role: 'admin',
+    confirmed_at: Time.now,
   }) }
   let(:userprofile) {Profile.create!({
     user_id: user.id,

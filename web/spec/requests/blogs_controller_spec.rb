@@ -1,15 +1,17 @@
 require 'rails_helper'
 
-describe 'BlogsController', type: :request do
+describe BlogsController, type: :request do
   let(:user) {User.create!({
     email: 'admin@admin.com',
     password: 'password',
     role: 'admin',
+    confirmed_at: Time.now,
   }) }
   let(:user2) {User.create!({
     email: 'member@member.com',
     password: 'password',
     role: 'guest',
+    confirmed_at: Time.now,
   }) }
   let(:blog1) {Blog.create!({
     user_id: user.id,
@@ -23,6 +25,7 @@ describe 'BlogsController', type: :request do
   }) }
 
   before do
+    user
     user2
     sign_in(user)
     blog1
@@ -37,11 +40,13 @@ describe 'BlogsController', type: :request do
         title: blog1.title,
         contents: blog1.contents,
         timestamp: blog1.created_at,
+        owner: user.email,
       }, {
         id: blog2.id,
         title: blog2.title,
         contents: blog2.contents,
         timestamp: blog2.created_at,
+        owner: user.email,
         }]
     }.to_json }
 
@@ -104,11 +109,11 @@ describe 'BlogsController', type: :request do
         password: 'password',
         role: 'guest',
       }) }
-      let(:expected_response_status) { 403 }
+      let(:expected_response_status) { 401 }
       before do
         sign_in(user2)
       end
-      it 'returns 403 unauthorized' do
+      it 'returns 401 unauthorized' do
         request
         expect(response.status).to eq expected_response_status
       end
@@ -170,6 +175,7 @@ describe 'BlogsController', type: :request do
         title: blog1.title,
         contents: blog1.contents,
         timestamp: blog1.created_at,
+        owner: user.username,
       }]
     }.to_json }
     it 'destroys blog2 from the database' do
