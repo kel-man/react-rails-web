@@ -5,3 +5,7 @@ if @editable
   json.editable @editable
 end
 json.timestamp @blog.created_at
+json.owner @blog.user.username
+if @blog.user.profile.avatar.attached?
+  json.avatarURL url_for(@blog.user.profile.avatar)
+end
