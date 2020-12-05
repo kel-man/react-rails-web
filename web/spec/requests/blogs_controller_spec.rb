@@ -91,6 +91,7 @@ describe BlogsController, type: :request do
       title: updated_title,
       contents: updated_contents,
       timestamp: blog2.created_at,
+      owner: blog2.user.username,
     }.to_json }
     it 'edits the title and contents of blog2' do
       request
@@ -129,6 +130,7 @@ describe BlogsController, type: :request do
       contents: blog2.contents,
       editable: editable,
       timestamp: blog2.created_at,
+      owner: blog2.user.username,
     }.to_json }
     it 'shows blog2 from the database' do
       request
@@ -140,6 +142,7 @@ describe BlogsController, type: :request do
         title: blog2.title,
         contents: blog2.contents,
         timestamp: blog2.created_at,
+        owner: blog2.user.username,
       }.to_json }
       before do
         sign_in user2
@@ -156,6 +159,7 @@ describe BlogsController, type: :request do
         contents: blog2.contents,
         editable: editable,
         timestamp: blog2.created_at,
+        owner: blog2.user.username,
       }.to_json }
       before do
         sign_in user
@@ -163,6 +167,18 @@ describe BlogsController, type: :request do
       it 'blog is editable' do
         request
         expect(response.body).to eq expected_response
+      end
+    end
+    context 'user has uploaded an avatar' do
+      let(:avatar) { patch "/profiles/#{blog2.user.profile.id}", params: {
+        avatar: fixture_file_upload("#{Rails.root}/spec/fixtures/images/example.png", 'image/png'),
+      } }
+      let(:expected_URL_end) { "/example.png" }
+
+      it 'shows the avatar URL when the avatar has been attached' do
+        avatar
+        request
+        expect(JSON.parse(response.body)["avatarURL"]).to end_with expected_URL_end
       end
     end
   end

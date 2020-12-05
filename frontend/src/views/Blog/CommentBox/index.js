@@ -10,6 +10,8 @@ const styles = theme => ({
   commentList: {
     display: 'inline-block',
   },
+  commentInput: {},
+  postCommentButton: {},
 })
 
 const CommentBox = ({ classes, history, match }) => {
@@ -134,12 +136,11 @@ const CommentBox = ({ classes, history, match }) => {
                 </>
               )}
             </Container>
-            {/* <EachComment c={c}/> */}
           </div>
         )
       })}
-      <TextField inputProps={{ 'data-testid': 'new-comment' }} label="New comment..." value={comment.newComment} onChange={handleChange} />
-      <Button onClick={() => sendComment()} label={'New'}>Post New Comment</Button>
+      <TextField inputProps={{ 'data-testid': 'new-comment' }} className={classes.commentInput} label="New comment..." value={comment.newComment} onChange={handleChange} />
+      <Button onClick={() => sendComment()} label={'New'} className={classes.postCommentButton}>Post New Comment</Button>
     </>
   )
 }
