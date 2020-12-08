@@ -48,7 +48,6 @@ const BlogShow = ({ classes, history, match }) => {
   const [blog, setBlog] = useState({
     owner: 'Null', // so that the empty avatar key does not crash the render
   })
-  const [loading, setLoading] = useState(null)
   useEffect(() => {
     axios({
       headers: {
@@ -60,8 +59,6 @@ const BlogShow = ({ classes, history, match }) => {
       .then(response => {
         setBlog(response.data)
         console.log(response.data)
-        setLoading(1)
-        console.log(blog.contents)
       })
       .catch(error => {})
   }, [])
