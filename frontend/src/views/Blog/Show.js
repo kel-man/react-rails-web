@@ -9,7 +9,10 @@ const styles = theme => ({
   blogTitle: {
     paddingLeft: '40px',
   },
-  blogContents: {},
+  blogContents: {
+    paddingTop: '15px',
+    paddingBottom: '30px',
+  },
   commentContainer: {},
   container: {
     display: 'flex',
@@ -19,19 +22,33 @@ const styles = theme => ({
   },
   avatar: {
     alignSelf: 'flex-start',
-    height: '150px',
-    width: '150px',
+    height: '130px',
+    width: '120px',
   },
   header: {
     display: 'flex',
     flexFlow: 'row',
   },
+  credit: {
+    alignSelf: 'flex-end',
+    paddingBottom: '15px',
+  },
+  blogParagraph: {},
 })
+
+const formatDate = ts => {
+  return new Date(ts).toLocaleDateString('en-gb', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
 
 const BlogShow = ({ classes, history, match }) => {
   const [blog, setBlog] = useState({
     owner: 'Null', // so that the empty avatar key does not crash the render
   })
+  const [loading, setLoading] = useState(null)
   useEffect(() => {
     axios({
       headers: {
@@ -43,6 +60,8 @@ const BlogShow = ({ classes, history, match }) => {
       .then(response => {
         setBlog(response.data)
         console.log(response.data)
+        setLoading(1)
+        console.log(blog.contents)
       })
       .catch(error => {})
   }, [])
@@ -53,9 +72,21 @@ const BlogShow = ({ classes, history, match }) => {
         <Container className={classes.header}>
           {blog.avatarURL && <img src={blog.avatarURL} className={classes.avatar} />}
           {!blog.avatarURL && <Avatar>{blog.owner.charAt(0)}</Avatar>}
-          <Typography key="title" className={classes.blogTitle}>{blog.title}</Typography>
+          <Typography key="title" variant='h3' className={classes.blogTitle}>{blog.title}</Typography>
         </Container>
-        <Typography key="contents" className={classes.blogContents}>{blog.contents}</Typography>
+        <Container className={classes.blogContents}>
+          <>
+            {blog.contents && blog.contents.split('\n').map((paragraph, index) => {
+              return(
+              <div key={index}>
+                <br/>
+                <Typography key="contents" className={classes.blogParagraph}>{paragraph}</Typography>
+              </div>
+              )
+            })}
+          </>
+        </Container>
+        <Typography className={classes.credit}>Posted by {blog.owner} on {formatDate(blog.timestamp)}</Typography>
         <Container className={classes.commentContainer}>
           <CommentBox/>
         </Container>
