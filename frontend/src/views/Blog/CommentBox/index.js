@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-import { Container, Box, Typography, TextField, Button } from '@material-ui/core'
+import { ListItem, Container, Box, Typography, TextField, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import AuthContext from '../../../AuthContext'
@@ -8,10 +8,20 @@ import BorderColorIcon from '@material-ui/icons/BorderColor'
 
 const styles = theme => ({
   commentList: {
-    display: 'inline-block',
+    display: 'flex',
+    flexFlow: 'column',
+  },
+  eachComment: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: '10px',
   },
   commentInput: {},
   postCommentButton: {},
+  editButton: {
+    display: 'flex',
+  },
 })
 
 const CommentBox = ({ classes, history, match }) => {
@@ -95,52 +105,34 @@ const CommentBox = ({ classes, history, match }) => {
       })
   }
 
-  const EachComment = ({c}) => {
-    // const [editing, setEditing] = useState(null)
-    return(
-      <>
-        <Container className={classes.commentList}>
-          {c.owner == authContext.username && <BorderColorIcon onClick={() => editComment({c})}/>}
-          {editing == c.id && (
-            <>
-              <TextField value={editedComment.comment} onChange={handleEdit}/>
-              <Button onClick={() => saveEdit(setEditing)} label={'Save'} >Save Comment</Button>
-            </>
-          )}
-          {!(editing == c.id) && (
-            <>
-              <Typography>{c.comment}</Typography>
-            </>
-          )}
-        </Container>
-      </>
-    )
-  }
-
   return (
     <>
-      {commentList.map(c => {
-        return (
-          <div key={c.id}>
-            <Container className={classes.commentList}>
-              {c.owner == authContext.username && <BorderColorIcon onClick={() => editComment({c})}/>}
-              {editing == c.id && (
-                <>
-                  <TextField value={editedComment.comment} onChange={handleEdit}/>
-                  <Button onClick={() => saveEdit(c.id)} label={'Save'} >Save Comment</Button>
-                </>
-              )}
-              {!(editing == c.id) && (
-                <>
-                  <Typography>{c.comment}</Typography>
-                </>
-              )}
-            </Container>
-          </div>
-        )
-      })}
+      <Container className={classes.commentList}>
       <TextField inputProps={{ 'data-testid': 'new-comment' }} className={classes.commentInput} label="New comment..." value={comment.newComment} onChange={handleChange} />
       <Button onClick={() => sendComment()} label={'New'} className={classes.postCommentButton}>Post New Comment</Button>
+        {commentList.map(c => {
+          return (
+            <div key={c.id}>
+              <Container className={classes.eachComment}>
+                <ListItem button className={classes.eachComment}>
+                {editing == c.id && (
+                  <>
+                    <TextField value={editedComment.comment} onChange={handleEdit}/>
+                    <Button onClick={() => saveEdit(c.id)} label={'Save'} >Save Comment</Button>
+                  </>
+                )}
+                {!(editing == c.id) && (
+                  <>
+                    <Typography>{c.comment}</Typography>
+                  </>
+                )}
+                {c.owner == authContext.username && <BorderColorIcon className={classes.editButton} onClick={() => editComment({c})}/>}
+                </ListItem>
+              </Container>
+            </div>
+          )
+        })}
+      </Container>
     </>
   )
 }

@@ -36,7 +36,7 @@ class BlogsController < ApplicationController
   end
 
   def index
-    @blogs = Blog.all
+    @blogs = Blog.all.order(updated_at: :desc)
   end
 
   private
