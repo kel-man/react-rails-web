@@ -4,6 +4,8 @@ import { Avatar, Container, Typography, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css'
 
 const styles = theme => ({
   blogTitle: {
@@ -73,7 +75,7 @@ const BlogShow = ({ classes, history, match }) => {
         </Container>
         <Container className={classes.blogContents}>
           <>
-            {blog.contents && blog.contents.split('\n').map((paragraph, index) => {
+            {!blog.quill && blog.contents && blog.contents.split('\n').map((paragraph, index) => {
               return(
               <div key={index}>
                 <br/>
@@ -81,6 +83,11 @@ const BlogShow = ({ classes, history, match }) => {
               </div>
               )
             })}
+            {blog.quill && (
+              <>
+                <ReactQuill theme='bubble' readOnly={true} value={blog.contents}/>
+              </>
+            ) }
           </>
         </Container>
         <Typography className={classes.credit}>Posted by {blog.owner} on {formatDate(blog.timestamp)}</Typography>

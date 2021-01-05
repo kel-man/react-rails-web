@@ -9,3 +9,4 @@ json.owner @blog.user.username
 if @blog.user.profile.avatar.attached?
   json.avatarURL url_for(@blog.user.profile.avatar)
 end
+json.quill @quill

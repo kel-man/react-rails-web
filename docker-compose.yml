@@ -18,14 +18,14 @@ services:
     build:
       context: ./frontend
     volumes:
-      - ./frontend/config:/usr/src/app/config
-      - ./frontend/src:/usr/src/app/src
-      - ./frontend/public:/usr/src/app/public
-      - ./frontend/start.sh:/usr/src/app/start.sh
-      - ./frontend/package-lock.json:/usr/src/app/package-lock.json
-      - ./frontend/package.json:/usr/src/app/package.json
-      - ./frontend/scripts:/usr/src/app/scripts
-      - ./web/static:/usr/src/web/static
+      - ${PWD}/frontend/config:/usr/src/app/config
+      - ${PWD}/frontend/src:/usr/src/app/src
+      - ${PWD}/frontend/public:/usr/src/app/public
+      - ${PWD}/frontend/start.sh:/usr/src/app/start.sh
+      - ${PWD}/frontend/package-lock.json:/usr/src/app/package-lock.json
+      - ${PWD}/frontend/package.json:/usr/src/app/package.json
+      - ${PWD}/frontend/scripts:/usr/src/app/scripts
+      - ${PWD}/web/static:/usr/src/web/static
     ports:
       - 3000:3000
       - 3001:3001
@@ -37,5 +37,3 @@ services:
     ports:
       - 5432
 
-volumes:
-  node_modules:

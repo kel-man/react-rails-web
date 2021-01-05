@@ -36,16 +36,16 @@ describe BlogsController, type: :request do
     let(:request) { get '/blogs' }
     let(:expected_response) { {
       blogs: [{
-        id: blog1.id,
-        title: blog1.title,
-        contents: blog1.contents,
-        timestamp: blog1.created_at,
-        owner: user.email,
-      }, {
         id: blog2.id,
         title: blog2.title,
         contents: blog2.contents,
         timestamp: blog2.created_at,
+        owner: user.email,
+      }, {
+        id: blog1.id,
+        title: blog1.title,
+        contents: blog1.contents,
+        timestamp: blog1.created_at,
         owner: user.email,
         }]
     }.to_json }
