@@ -23,6 +23,7 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find_by({id: params[:id], })
     @editable = current_user.role == 'admin' || current_user.id == @blog.user_id
+    @quill = @blog.created_at > DateTime.strptime('2020-12-12', '%Y-%m-%d')
     head 404 unless @blog
   end
 

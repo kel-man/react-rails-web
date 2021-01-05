@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import AuthContext from '../../../AuthContext'
 import BorderColorIcon from '@material-ui/icons/BorderColor'
+import ForumIcon from '@material-ui/icons/Forum'
 
 const styles = theme => ({
   commentList: {
