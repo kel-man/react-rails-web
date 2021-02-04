@@ -10,6 +10,8 @@ import Pricing from './views/Pricing/'
 import Whiteboard from './views/Whiteboard/'
 import Checklist from './views/Checklist/'
 import Blog from './views/Blog/'
+import Footer from './components/Footer'
+import { Box } from '@material-ui/core'
 
 const AppRouter = () => {
   const authContext = useContext(AuthContext)
@@ -17,6 +19,7 @@ const AppRouter = () => {
     <>
       <Router>
         <Navbar />
+        <Box marginTop='50px'/>
         <Switch>
           <Route path="/_/FAQ" component={FAQ} />
           <Route path="/_/profile" component={UserProfile} />
@@ -28,6 +31,7 @@ const AppRouter = () => {
           {!authContext.loggedIn && <Route path="/" component={HomePage} />}
           {authContext.loggedIn && <Route path="/" component={Checklist} />}
         </Switch>
+        <Footer/>
       </Router>
     </>
   )

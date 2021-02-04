@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import CommentBox from './CommentBox'
-import { Avatar, Container, Typography, Button } from '@material-ui/core'
+import { Avatar, Container, Typography, Button, Modal } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import ReactQuill from 'react-quill'
+import AuthContext from '../../AuthContext'
 import 'react-quill/dist/quill.bubble.css'
 
 const styles = theme => ({
@@ -21,6 +22,17 @@ const styles = theme => ({
     flexFlow: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  modalStyle: {
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   avatar: {
     alignSelf: 'flex-start',
@@ -47,9 +59,12 @@ const formatDate = ts => {
 }
 
 const BlogShow = ({ classes, history, match }) => {
+  const authContext = useContext(AuthContext)
   const [blog, setBlog] = useState({
     owner: 'Null', // so that the empty avatar key does not crash the render
   })
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+
   useEffect(() => {
     axios({
       headers: {
@@ -64,6 +79,25 @@ const BlogShow = ({ classes, history, match }) => {
       })
       .catch(error => {})
   }, [])
+
+  const destroyBlog = () => {
+    axios({
+      headers: {
+        contentType: 'application/json',
+      },
+      method: 'DELETE',
+      url: `/blogs/${blog.id}`,
+    })
+      .then(response => {
+        history.push('/_/blog')
+        console.log(response.data)
+    })
+      .catch(error => {})
+  }
+
+  const handleClose = () => {
+    setDeleteConfirmation(false)
+  }
 
   return (
     <>
@@ -91,6 +125,18 @@ const BlogShow = ({ classes, history, match }) => {
           </>
         </Container>
         <Typography className={classes.credit}>Posted by {blog.owner} on {formatDate(blog.timestamp)}</Typography>
+        {blog.owner == authContext.username && <Button className={classes.credit} onClick={() => setDeleteConfirmation(true)}>Delete Blog</Button>}
+        <Modal
+          open={deleteConfirmation}
+          onClose={handleClose}
+          aria-labelledby="confirm-delete"
+          aria-describedby="are-you-sure"
+        >
+          <Container className={classes.modalStyle}>
+            <Typography>Are you sure you wish to delete this blog post?</Typography>
+            <Button onClick={()=>destroyBlog()}>Yes</Button><Button onClick={() => setDeleteConfirmation(false)}>No</Button>
+          </Container>
+        </Modal>
         <Container className={classes.commentContainer}>
           <CommentBox/>
         </Container>

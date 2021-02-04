@@ -39,13 +39,13 @@ describe BlogsController, type: :request do
         id: blog2.id,
         title: blog2.title,
         contents: blog2.contents,
-        timestamp: blog2.created_at,
+        timestamp: blog2.updated_at.iso8601,
         owner: user.email,
       }, {
         id: blog1.id,
         title: blog1.title,
         contents: blog1.contents,
-        timestamp: blog1.created_at,
+        timestamp: blog1.updated_at.iso8601,
         owner: user.email,
         }]
     }.to_json }
@@ -87,15 +87,15 @@ describe BlogsController, type: :request do
       }
     } }
     let(:expected_response) { {
-      id: blog2.id,
-      title: updated_title,
-      contents: updated_contents,
-      timestamp: blog2.created_at,
-      owner: blog2.user.username,
-    }.to_json }
+      "id" => blog2.id,
+      "title" => updated_title,
+      "contents" => updated_contents,
+      "timestamp" => blog2.updated_at.iso8601,
+      "owner" => blog2.user.username,
+    } }
     it 'edits the title and contents of blog2' do
       request
-      expect(response.body).to eq expected_response
+      expect(JSON.parse(response.body)).to include expected_response
       expect(blog2.reload.title).to eq updated_title
     end
     context 'user is not admin' do
@@ -129,8 +129,9 @@ describe BlogsController, type: :request do
       title: blog2.title,
       contents: blog2.contents,
       editable: editable,
-      timestamp: blog2.created_at,
+      timestamp: blog2.updated_at.iso8601,
       owner: blog2.user.username,
+      quill: true,
     }.to_json }
     it 'shows blog2 from the database' do
       request
@@ -141,8 +142,9 @@ describe BlogsController, type: :request do
         id: blog2.id,
         title: blog2.title,
         contents: blog2.contents,
-        timestamp: blog2.created_at,
+        timestamp: blog2.updated_at.iso8601,
         owner: blog2.user.username,
+        quill: true,
       }.to_json }
       before do
         sign_in user2
@@ -158,8 +160,9 @@ describe BlogsController, type: :request do
         title: blog2.title,
         contents: blog2.contents,
         editable: editable,
-        timestamp: blog2.created_at,
+        timestamp: blog2.updated_at.iso8601,
         owner: blog2.user.username,
+        quill: true,
       }.to_json }
       before do
         sign_in user
@@ -190,7 +193,7 @@ describe BlogsController, type: :request do
         id: blog1.id,
         title: blog1.title,
         contents: blog1.contents,
-        timestamp: blog1.created_at,
+        timestamp: blog1.updated_at.iso8601,
         owner: user.username,
       }]
     }.to_json }

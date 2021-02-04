@@ -42,6 +42,7 @@ const styles = theme => ({
     marginLeft: drawerWidth,
     alignItems: 'left',
     flexFlow: 'column',
+    marginTop: '50px',
   },
   editSave: {
     maxWidth: '75px',
