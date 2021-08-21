@@ -125,6 +125,7 @@ const UserProfile = ({ classes, history }) => {
     })
       .then(response => {
         setRefresh(refresh + 1)
+        setNewUsername([''])
       })
       .catch(error => console.log(error))
   }

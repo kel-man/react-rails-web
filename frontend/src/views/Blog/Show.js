@@ -125,7 +125,10 @@ const BlogShow = ({ classes, history, match }) => {
           </>
         </Container>
         <Typography className={classes.credit}>Posted by {blog.owner} on {formatDate(blog.timestamp)}</Typography>
-        {blog.owner == authContext.username && <Button className={classes.credit} onClick={() => setDeleteConfirmation(true)}>Delete Blog</Button>}
+        {blog.owner == authContext.username &&
+          <Button className={classes.credit} onClick={() => setDeleteConfirmation(true)}>
+            Delete Blog
+          </Button>}
         <Modal
           open={deleteConfirmation}
           onClose={handleClose}
